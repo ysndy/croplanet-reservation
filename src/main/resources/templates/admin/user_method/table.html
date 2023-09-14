@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th th:text="#{label.userMethod.index}"> Index </th>
+                <th th:text="#{label.userMethod.date}"> 날짜 </th>
+                <th th:text="#{label.userMethod.action}"> 행동 </th>
+                <th th:text="#{label.userMethod.id}"> ID </th>
+                <th th:text="#{label.userMethod.query}"> 공유자 </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="userMethod : ${userMethods}">
+                <td th:text="${userMethod.index}"></td>
+                <td th:text="${userMethod.date}"></td>
+                <td th:text="${userMethod.action}"></td>
+                <td th:text="${userMethod.id}"></td>
+                <td th:text="${userMethod.query}"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+</html>

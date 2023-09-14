@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -21,6 +23,10 @@ public class UserMethodService {
     public Long save(UserMethod userMethod){
 
         return userMethodRepository.save(userMethod).getIndex();
+    }
+
+    public List<UserMethod> getUserMethods(){
+        return userMethodRepository.findAll();
     }
 
 //    public List<String> getRequests(){

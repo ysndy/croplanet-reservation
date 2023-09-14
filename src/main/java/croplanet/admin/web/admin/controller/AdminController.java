@@ -24,6 +24,13 @@ public class AdminController {
 
     private final UserMethodService userMethodService;
 
+    @GetMapping("/table")
+    public String table(Model model){
+        List<UserMethod> userMethods = userMethodService.getUserMethods();
+        model.addAttribute("userMethods", userMethods);
+        return "admin/user_method/table";
+    }
+
     /**
      * @return
      */
