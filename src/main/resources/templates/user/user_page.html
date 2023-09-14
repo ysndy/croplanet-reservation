@@ -77,7 +77,9 @@
     <button onclick="share()">공유</button>
     <button onclick="like_top()">좋아요 상단</button>
     <button onclick="like_bottom()">좋아요 하단</button>
-    <button onclick="basket()">장바구니</button>
+    <form th:action="@{/users/basket}" method="get">
+        <button type="submit"> 장바구니 </button>
+    </form>
     <button onclick="buy()">구매</button>
     <button onclick="post()">전달</button>
 

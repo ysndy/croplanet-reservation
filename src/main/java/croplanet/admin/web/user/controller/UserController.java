@@ -34,10 +34,9 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/basket")
-    @ResponseBody
-    public ResponseEntity basket(){
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/basket")
+    public String basket(){
+        return "user/reservation";
     }
 
     @PostMapping("/buy")
