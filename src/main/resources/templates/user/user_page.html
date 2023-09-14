@@ -3,32 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        /* 슬라이드 쇼 컨테이너 스타일 */
+        .slideshow-container {
+            max-width: 800px;
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* 이미지 슬라이드 스타일 */
+        .mySlides {
+            display: none;
+            width: 100%;
+        }
+
+        /* 이전/다음 버튼 스타일 */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+
+        /* 다음 버튼 스타일 */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* 버튼에 호버 효과 스타일 */
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .myDiv {
+            background-color: #007bff;
+            height: 1500px;
+        }
+
+    </style>
+
 </head>
 <body>
 
-    <form th:action="@{/users/button1}" method="post">
+    <div class="slideshow-container" id="slideshow">
+        <!-- 이미지 슬라이드 -->
+        <div class="mySlides">
+            <img src="images/image1.jpg" style="width:100%">
+        </div>
 
-        <button>버튼 1</button>
+        <div class="mySlides">
+            <img src="images/image2.png" style="width:100%">
+        </div>
 
-    </form>
+        <div class="mySlides">
+            <img src="images/image3.png" style="width:100%">
+        </div>
 
-    <form th:action="@{/users/button2}" method="post">
+        <!-- 이전/다음 버튼 -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
 
-        <button>버튼 2</button>
+    <button onclick="share()">공유</button>
+    <button onclick="like_top()">좋아요 상단</button>
+    <button onclick="like_bottom()">좋아요 하단</button>
+    <button onclick="basket()">장바구니</button>
+    <button onclick="buy()">구매</button>
+    <button onclick="post()">전달</button>
 
-    </form>
+    <div class="myDiv">
 
-    <form th:action="@{/users/button3}" method="post">
+    </div>
 
-        <button>버튼 3</button>
 
-    </form>
+    <!-- jQuery 라이브러리를 사용하여 AJAX 요청 설정 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
 
-    <form th:action="@{/users/button4}" method="post">
+        function share(){
+            $.ajax({
+                url: "/users/share",
+                type: "POST"
+            })
+        }
 
-        <button>버튼 4</button>
+        function like_top(){
+            $.ajax({
+                url: "/users/like_top",
+                type: "POST"
+            })
+        }
 
-    </form>
+        function like_bottom(){
+            $.ajax({
+                url: "/users/like_bottom",
+                type: "POST"
+            })
+        }
+
+        function basket(){
+            $.ajax({
+                url: "/users/basket",
+                type: "POST"
+            })
+        }
+
+        function buy(){
+            $.ajax({
+                url: "/users/buy",
+                type: "POST"
+            })
+        }
+
+        function post(){
+            $.ajax({
+                url: "/users/post",
+                type: "POST"
+            })
+        }
+
+        <!-- 스와이프 관련 코드 -->
+
+        var slideIndex = 0;
+        showSlides(slideIndex);
+
+        var slideshowContainer = document.getElementById('slideshow');
+
+        // 스와이프 이벤트 감지
+        var startX, startY, endX, endY;
+        slideshowContainer.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        slideshowContainer.addEventListener('touchend', function (e) {
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+            handleSwipe();
+        });
+
+        // 스와이프로 슬라이드 변경
+        function handleSwipe() {
+            var deltaX = startX - endX;
+            var deltaY = startY - endY;
+            var sensitivity = 50; // 스와이프 감도 (조절 가능)
+
+            if (Math.abs(deltaX) > sensitivity && Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) {
+                    // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드 표시)
+                    plusSlides(1);
+                } else {
+                    // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드 표시)
+                    plusSlides(-1);
+                }
+            }
+        }
+
+        // 이전/다음 슬라이드 표시 함수
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+            $.ajax({
+                url: "/users/swipe",
+                type: "POST"
+            })
+        }
+
+        // 현재 슬라이드 인덱스 설정 및 슬라이드 표시 함수
+        function showSlides(n) {
+            var slides = document.getElementsByClassName("mySlides");
+            if (n >= slides.length) {
+                slideIndex = 0;
+            }
+            if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex].style.display = "block";
+        }
+
+        <!-- 스크롤 관련 -->
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 현재 스크롤 위치
+            var scrollY = window.scrollY;
+            // 문서의 전체 높이
+            var documentHeight = document.documentElement.scrollHeight;
+            // 브라우저의 뷰포트 높이
+            var windowHeight = window.innerHeight;
+
+            // 스크롤이 끝까지 내려갔을 때 POST 요청 보내기
+            if (scrollY + windowHeight >= documentHeight) {
+                $.ajax({
+                    url : "/users/scroll_bottom",
+                    type: "POST"
+                });
+            }
+        });
+
+    </script>
 
 </body>
 </html>

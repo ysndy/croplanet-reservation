@@ -5,20 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class LogRepositoryTest {
+class UserMethodRepositoryTest {
 
-    @Autowired private LogRepository logRepository;
+    @Autowired private UserMethodRepository userMethodRepository;
 
     @Test
     void findRequestDomainDistinct() {
-        Assertions.assertThat(logRepository.findRequestDomainDistinct().get(0)).isEqualTo("button1");
+        Assertions.assertThat(userMethodRepository.findRequestDomainDistinct().get(0)).isEqualTo("button1");
     }
 
     @Test
     void countByRequestDomainEquals() {
-        Assertions.assertThat(logRepository.countByRequestDomainEquals("button1")).isEqualTo(1L);
+        Assertions.assertThat(userMethodRepository.countByRequestDomainEquals("button1")).isEqualTo(1L);
     }
 }
