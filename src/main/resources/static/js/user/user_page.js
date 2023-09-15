@@ -1,7 +1,7 @@
 <!-- 카카오 관련 -->
 Kakao.init('ffb1ac4b290c42a760a2af6a06801cba'); // 사용하려는 앱의 JavaScript 키 입력
 
-function share(){
+function share(query){
     $.ajax({
         url: "/users/share",
         type: "POST"
@@ -12,7 +12,7 @@ function share(){
 
     // Clipboard API를 사용하여 현재 주소를 클립보드에 복사
     var tempInput = document.createElement("input");
-    tempInput.value = currentURL+"?query=ASDASD";
+    tempInput.value = currentURL+"?query="+query;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");

@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/users")
@@ -12,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @GetMapping
-    public String userPage(){
+    public String userPage(Model model, HttpServletRequest request){
+
+        HttpSession session = request.getSession(false);
+        model.addAttribute("query", session.getId());
         return "user/user_page";
     }
 

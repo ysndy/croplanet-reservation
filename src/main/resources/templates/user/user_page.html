@@ -59,7 +59,7 @@
         <!-- 공유하기 -->
         <div>
             <button onclick="like_top()">좋아요 상단</button>
-            <button onclick="share()">공유</button>
+            <button th:onclick="share([[${query}]])">공유</button>
         </div>
         <!-- 브랜드 정보 -->
         <div>
