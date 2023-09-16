@@ -70,6 +70,7 @@ function buy(){
     // 바텀시트를 아래로 스와이프하여 닫기
     let startY, endY;
 
+    //터치 이벤트 등록
     bottomSheet.addEventListener("touchstart", function (e) {
         startY = e.touches[0].clientY;
     });
@@ -79,7 +80,22 @@ function buy(){
     });
 
     bottomSheet.addEventListener("touchend", function () {
-        if (startY > endY && bottomSheet.classList.contains("active")) {
+        if (startY < endY && bottomSheet.classList.contains("active")) {
+            buy();
+        }
+    });
+
+    //마우스 이벤트 등록
+    bottomSheet.addEventListener("mousedown", function (e) {
+        startY = e.clientY;
+    });
+
+    bottomSheet.addEventListener("mousemove", function (e) {
+        endY = e.clientY;
+    });
+
+    bottomSheet.addEventListener("mouseup", function () {
+        if (startY < endY && bottomSheet.classList.contains("active")) {
             buy();
         }
     });
@@ -158,7 +174,7 @@ function showSlides(n) {
 
     // 현재 사진 번호와 전체 사진 갯수 업데이트
     if(slideNumberElement != undefined) {
-        slideNumberElement.textContent = (slideIndex + 1) + " / " + slides.length;
+        slideNumberElement.textContent = (slideIndex + 1) + "/" + slides.length;
     }
 }
 

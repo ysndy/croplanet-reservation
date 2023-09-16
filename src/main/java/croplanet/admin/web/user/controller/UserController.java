@@ -18,8 +18,14 @@ public class UserController {
     @GetMapping
     public String userPage(Model model, HttpServletRequest request){
 
+        //공유 시 전달될 세션 아이디 추가
         HttpSession session = request.getSession(false);
         model.addAttribute("query", session.getId());
+
+        //어드민 페이지 에서 작성한 마케팅 문구 추가
+        String comment = "qweqwe\nqweqwe\nqweqwe\nqweqwe";
+        model.addAttribute("comment", comment);
+
         return "user/user_page";
     }
 
