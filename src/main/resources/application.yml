@@ -17,3 +17,11 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+
+kakao:
+  client:
+    id: d5b54589b2a05333f8907ff397d9960a
+    secret: 7JrTbeqmwbUbM9MjWmt8tRgCI4DQIRsy
+
+  redirect:
+    url: http://localhost:8080/users/basket

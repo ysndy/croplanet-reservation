@@ -38,9 +38,21 @@ function like_bottom(){
 
 function reservation() {
 
-    //채널 추가 되었는지 확인
+    /**
+     * 1. 카카오 로그인
+     * 2. 해당 카카오 ID가 사전예약 DB에 있는지 조회
+     * 2-1. 없으면) 사전예약 DB에 저장
+     * 3. 사전예약 대기 목록 뷰를 반환.
+     */
+
+    $.ajax({
+        url: "/users/basket",
+        type: "GET"
+    })
+
+    //사용자 닉네임 확인
     Kakao.API.request({
-        url: '/v1/api/talk/channels',
+        url: '/v1/api/talk/profile',
     })
         .then(function(response) {
             console.log(response);
@@ -49,11 +61,6 @@ function reservation() {
             console.log(error);
         });
 
-    //채널 추가
-    Kakao.Channel.addChannel({
-        channelPublicId: '_xavxjMs',
-    });
-    //
 }
 
 function buy(){
@@ -108,6 +115,9 @@ function post(){
         type: "POST"
     })
 }
+
+
+
 
 <!-- 스와이프 관련 코드 -->
 var slideIndex = 0;

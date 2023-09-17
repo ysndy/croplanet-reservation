@@ -1,6 +1,11 @@
 package croplanet.admin.web.user.controller;
 
+import croplanet.admin.domain.entity.Reservation;
+import croplanet.admin.domain.repository.ReservationRepository;
+import croplanet.admin.web.user.dto.KakaoDTO;
+import croplanet.admin.web.user.service.KakaoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,11 +14,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
+
+    private final KakaoService kakaoService;
+    private final ReservationRepository reservationRepository;
 
     @GetMapping
     public String userPage(Model model, HttpServletRequest request){
@@ -27,6 +37,11 @@ public class UserController {
         model.addAttribute("comment", comment);
 
         return "user/user_page";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "redirect:"+kakaoService.getKakaoLogin();
     }
 
     @PostMapping("/share")
@@ -47,8 +62,28 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
     @GetMapping("/basket")
-    public String basket(){
+    public String basket(HttpServletRequest request, Model model) throws Exception {
+
+        //카카오 정보 추가
+        KakaoDTO kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"));
+        model.addAttribute("kakaoInfo", kakaoInfo);
+        log.debug("kakaoInfo={}", kakaoInfo);
+
+        //사전예약 순위 추가
+        Reservation reservation;
+        Optional optional = reservationRepository.findByKakaoId(kakaoInfo.getId());
+        if(optional.isPresent()){
+            reservation = (Reservation) optional.get();
+        }else {
+            reservation = new Reservation();
+            reservation.setKakaoId(kakaoInfo.getId());
+            reservationRepository.save(reservation);
+        }
+
+        model.addAttribute("reservation", reservation);
+
         return "user/reservation";
     }
 

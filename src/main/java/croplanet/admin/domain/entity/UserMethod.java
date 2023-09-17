@@ -1,4 +1,4 @@
-package croplanet.admin.domain;
+package croplanet.admin.domain.entity;
 
 import croplanet.admin.web.common.entity.BaseTimeEntity;
 import lombok.*;

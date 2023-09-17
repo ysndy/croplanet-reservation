@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>크로플래닛</title>
 
     <link th:href="@{/css/user/user_page.css}" rel="stylesheet"/>
-
+    <link rel="icon" href="/images/img.png">
 </head>
 <body>
 
@@ -15,8 +15,10 @@
         <nav>
 
             <p> 크로플래닛 </p>
-            <button onclick="reservation()">사전 예약</button>
 
+            <form th:action="@{/users/login}" method="get">
+                <button>사전 예약</button>
+            </form>
         </nav>
 
         <!-- 상품 이미지 -->

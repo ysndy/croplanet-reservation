@@ -1,20 +1,15 @@
 package croplanet.admin.web.admin.controller;
 
-import croplanet.admin.domain.UserMethod;
+import croplanet.admin.domain.entity.UserMethod;
+import croplanet.admin.domain.repository.UserMethodRepository;
 import croplanet.admin.web.user.service.UserMethodService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,12 +18,19 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     private final UserMethodService userMethodService;
+    private final UserMethodRepository userMethodRepository;
 
     @GetMapping("/table")
-    public String table(Model model){
-        List<UserMethod> userMethods = userMethodService.getUserMethods();
+    public String table(@RequestParam(defaultValue = "0") int page, Model model){
+        //List<UserMethod> userMethods = userMethodService.getUserMethods();
+        Page<UserMethod> userMethods = userMethodRepository.findAll(PageRequest.of(page, 30));
         model.addAttribute("userMethods", userMethods);
         return "admin/user_method/table";
+    }
+
+    @GetMapping("/editor")
+    public String editor(){
+        return "admin/editor";
     }
 
     /**

@@ -6,9 +6,12 @@
 </head>
 <body>
 
-    <h2> 사전 등록해주셔서 감사해요! </h2>
-    <p> 순위 </p>
-    <button> 공유하기 </button>
+    <h2 th:text="|${kakaoInfo.nickname} 님! 사전 등록해주셔서 감사해요!|"> 사전 등록해주셔서 감사해요! </h2>
+    <p th:text="|순위 : ${reservation.id}|"> 순위 </p>
+    <button onclick="addChannel()">채널 추가</button>
+    <a th:href="@{/users}"> 메인으로 </a>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script type="text/javascript" th:src="@{/js/user/reservation.js}"></script>
 
 </body>
 </html>

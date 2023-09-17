@@ -1,7 +1,7 @@
 package croplanet.admin.web.user.service;
 
-import croplanet.admin.domain.UserMethod;
-import croplanet.admin.domain.UserMethodRepository;
+import croplanet.admin.domain.entity.UserMethod;
+import croplanet.admin.domain.repository.UserMethodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
