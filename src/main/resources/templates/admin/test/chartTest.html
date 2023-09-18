@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .button-container {
+            margin-bottom: 20px;
+        }
+
+        .button-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .graphs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .graph_box {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 0 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+
+        canvas {
+            height: 250px;
+        }
+
+        .table_box {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 0 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .table_box h5 {
+            margin: 0;
+            padding: 5px;
+            background-color: #007bff;
+            color: white;
+            text-align: left;
+            border-radius: 5px 5px 0 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px; /* 상단 여백 추가 */
+        }
+
+        th, td {
+            color: #555555;
+            border-bottom: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="button-container">
+            <form th:action="@{/admin/refresh}" th:method="post">
+                <button>새로고침</button>
+            </form>
+        </div>
+
+        <div class="graphs">
+
+            <div class="graph_box">
+                <canvas id="chart_line"></canvas>
+            </div>
+
+            <div class="table_box">
+                <h5>All</h5>
+                <table>
+                    <tr th:each="entry : ${countsMap}">
+                        <td th:text="${entry.key}">Button1</td>
+                        <td th:text="${entry.value}">100</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="graphs">
+
+            <div class="graph_box">
+                <canvas id="chart_bar"></canvas>
+            </div>
+
+            <div class="graph_box">
+                <canvas id="chart_pie"></canvas>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:inline="javascript">
+    const bar = document.getElementById('chart_bar');
+    const pie = document.getElementById('chart_pie');
+    const line = document.getElementById('chart_line');
+
+    new Chart(bar, {
+        type: 'bar',
+        data: {
+            labels: [[${logs}]],
+            datasets: [{
+                label: '# of Clicks',
+                data: [[${countsByLogs}]],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(pie, {
+        type: 'pie',
+        data: {
+            labels: [[${logs}]],
+            datasets: [{
+                label: '# of Clicks',
+                data: [[${countsByLogs}]],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    const datasets = [];
+    const buttons = [[${logs}]]; // 버튼 이름 배열
+    const countsByDateTimesMap = [[${countsByDateTimesMap}]];
+    console.userMethod(buttons);
+    console.userMethod(countsByDateTimesMap);
+    for (let i = 0; i < buttons.length; i++) {
+        const buttonData = {
+            label: buttons[i],
+            data: [[${countsByLogs            }]],
+            borderWidth: 1
+        };
+        datasets.push(buttonData);
+    }
+
+
+    new Chart(line, {
+        type: 'line',
+        data: {
+            labels: [[${dateTimes}]],
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

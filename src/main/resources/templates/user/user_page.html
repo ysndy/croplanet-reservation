@@ -5,7 +5,7 @@
     <title>크로플래닛</title>
 
     <link th:href="@{/css/user/user_page.css}" rel="stylesheet"/>
-    <link rel="icon" href="/images/img.png">
+    <link rel="icon" href="/images/icon/logo.png">
 </head>
 <body>
 
@@ -17,7 +17,9 @@
             <p> 크로플래닛 </p>
 
             <form th:action="@{/users/login}" method="get">
-                <button>사전 예약</button>
+                <button>
+                    <img th:src="@{images/icon/basket.png}"/>
+                </button>
             </form>
         </nav>
 
@@ -54,7 +56,7 @@
                 <p class="category"> Make Dreams come true </p>
                 <p class="name"> 크로플래닛 </p>
                 <p class="price_pre"> 100,000원 </p>
-                <p>
+                <p class="price">
                     <span class="sale"> 100% </span>
                     <span class="price_post"> 0원 </span>
                 </p>
@@ -62,15 +64,21 @@
 
             <!-- 공유하기 -->
             <div class="middle_buttons">
-                <button onclick="like_top()">좋아요 상단</button>
-                <button th:onclick="share([[${query}]])">공유하기</button>
+                <button onclick="like_top()">
+                    <img th:src="@{images/icon/like.png}"/>
+                    <p>120</p>
+                </button>
+                <button th:onclick="share([[${query}]])">
+                    <img th:src="@{images/icon/share.png}"/>
+                    <p>공유하기</p>
+                </button>
             </div>
 
-            <hr>
+            <hr style="border: 1px solid #F4F5F8; margin: 0px ">
 
             <!-- 브랜드 정보 -->
             <div class="brand">
-                <img th:src="@{/images/img.png}" class="logo">
+                <img th:src="@{/images/icon/logo.png}" class="logo">
                 <div>
                     <h2> 크로플래닛 </h2>
                     <p> 크리에이터와 함께 하는 가치 소비 </p>
@@ -80,14 +88,19 @@
 
         </div>
 
-        <!-- 마케팅 설명 문구 -->
-        <div class="myDiv" th:text="${comment}"></div>
+        <hr class="brand-line">
+        <div class="container-comment">
+            <!-- 마케팅 설명 문구 -->
+            <div class="comment" th:utext="${comment}"></div>
+
+        </div>
+
 
         <div class="bottom">
 
             <!-- 구매하기 -->
             <button onclick="like_bottom()" class="like">
-                <img th:src="@{/images/img_2.png}"/>
+                <img th:src="@{/images/icon/like.png}"/>
             </button>
             <button onclick="buy()" class="gift">선물받기</button>
 
