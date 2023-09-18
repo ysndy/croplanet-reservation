@@ -21,6 +21,8 @@
     </form>
 
     <canvas id="chart_line"></canvas>
+    <canvas id="chart_bar"></canvas>
+
 
     <!--
     <script th:inline="javascript" th:src="@{/js/admin/chart.js}"></script>
@@ -64,6 +66,7 @@
         // endDateInput.valueAsDate = today;
 
         const line = document.getElementById('chart_line');
+        const bar = document.getElementById('chart_bar');
         const datasets = [];
         const actions = [[${actions}]]; // 버튼 이름 배열
         const dates = [[${dates}]];
@@ -104,6 +107,39 @@
                 }
             }
         });
+
+        console.log(datasets);
+
+        let data = [];
+
+        for(let i=0; i<datasets.length; i++){
+            let sum = 0;
+            for(let j=0; j<datasets[i].data.length; j++){
+                sum+=datasets[i].data[j];
+            }
+            data.push(sum);
+        }
+
+        new Chart(bar, {
+            type: 'bar',
+            data: {
+                labels: actions,
+                datasets: [{
+                    label: '# of Clicks',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
 
 
     </script>
