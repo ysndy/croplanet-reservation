@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>사전 예약 현황</title>
+</head>
+<body>
+    <section>
+        <table>
+            <thead>
+            <tr>
+                <th> 날짜 </th>
+                <th> 순번 </th>
+                <th> 카카오 아이디 </th>
+                <th> 이름 </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${reservations.content}">
+                <td th:text="${reservation.date}"></td>
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.kakaoId}"></td>
+                <td th:text="${reservation.name}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div th:if="${reservations.totalPages > 1}">
+            <ul class="pagination">
+                <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
+                    <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

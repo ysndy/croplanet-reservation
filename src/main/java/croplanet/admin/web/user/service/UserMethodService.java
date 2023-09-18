@@ -43,6 +43,7 @@ public class UserMethodService {
         }else {
             reservation = new Reservation();
             reservation.setKakaoId(kakaoDTO.getId());
+            reservation.setName(kakaoDTO.getNickname());
             reservationRepository.save(reservation);
         }
 

@@ -1,6 +1,8 @@
 package croplanet.admin.web.admin.controller;
 
+import croplanet.admin.domain.entity.Reservation;
 import croplanet.admin.domain.entity.UserMethod;
+import croplanet.admin.domain.repository.ReservationRepository;
 import croplanet.admin.domain.repository.UserMethodRepository;
 import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.service.UserMethodService;
@@ -23,6 +25,7 @@ public class AdminController {
 
     private final UserMethodService userMethodService;
     private final UserMethodRepository userMethodRepository;
+    private final ReservationRepository reservationRepository;
     private final FileManager fileManager;
 
     @GetMapping("/table")
@@ -48,6 +51,16 @@ public class AdminController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/reservation")
+    public String reservation(@RequestParam(defaultValue = "0") int page, Model model){
+
+        Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(page, 30));
+        model.addAttribute("reservations", reservations);
+
+        return "admin/reservation";
+
     }
 
     /**

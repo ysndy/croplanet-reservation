@@ -65,6 +65,7 @@ public class UserController {
     }
 
 
+    //예약 관련
     @GetMapping("/basket")
     public String basket(HttpServletRequest request, Model model) throws Exception {
 
