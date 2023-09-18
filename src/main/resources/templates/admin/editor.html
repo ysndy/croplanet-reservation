@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>마케팅 페이지 서비스</title>
+</head>
+<body>
+
+    <section>
+
+        <div>
+            <label for="imageUpload">이미지 업로드:</label>
+            <input type="file" id="imageUpload" accept="image/*" onchange="insertImage()" style="display: none;">
+            <button onclick="openImageUploader()">이미지 업로드</button>
+        </div>
+
+        <div>
+            <button onclick="alignText('left')">왼쪽 정렬</button>
+            <button onclick="alignText('center')">가운데 정렬</button>
+            <button onclick="alignText('right')">오른쪽 정렬</button>
+        </div>
+        <div>
+            <span>폰트 크기</span>
+            <button onclick="decreaseFontSize()">-</button>
+            <button onclick="increaseFontSize()">+</button>
+        </div>
+        <div>
+            <button onclick="toggleBold()">굵게</button>
+        </div>
+        <div>
+            <button onclick="save()">저장</button>
+        </div>
+
+        <div>
+            <div id="editor" contenteditable="true" placeholder="텍스트를 입력하세요..." th:utext="${fileContent}"></div>
+        </div>
+
+
+    </section>
+
+</body>
+</html>

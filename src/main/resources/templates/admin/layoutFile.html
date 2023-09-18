@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:replace="${title}">레이아웃 타이틀</title>
+  <link th:href="@{/css/admin.css}" rel="stylesheet"/>
+
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#" th:href="@{/admin/table}">요청사항 집계</a></li>
+      <li><a href="#" th:href="@{/admin/editor}">마케팅 페이지 관리</a></li>
+      <li><a href="#">사용자 행동</a></li>
+      <li><a href="#">사전 예약</a></li>
+      <li><a href="#">설문 결과</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div th:replace="${content}" class="content">
+      <p>레이아웃 컨텐츠</p>
+    </div>
+    <footer>
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" th:src="@{/js/admin/editor.js}"></script>
+
+</body>
+</html>

@@ -1,12 +1,16 @@
 package croplanet.admin.web.user.service;
 
+import croplanet.admin.domain.entity.Reservation;
 import croplanet.admin.domain.entity.UserMethod;
+import croplanet.admin.domain.repository.ReservationRepository;
 import croplanet.admin.domain.repository.UserMethodRepository;
+import croplanet.admin.web.user.dto.KakaoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -14,6 +18,7 @@ import java.util.List;
 public class UserMethodService {
 
     private final UserMethodRepository userMethodRepository;
+    private final ReservationRepository reservationRepository;
 
     public Long save(String user, String action, String query){
         UserMethod userMethod = new UserMethod(user, action, query);
@@ -27,6 +32,22 @@ public class UserMethodService {
 
     public List<UserMethod> getUserMethods(){
         return userMethodRepository.findAll();
+    }
+
+    public Reservation addReservation(KakaoDTO kakaoDTO){
+
+        Reservation reservation;
+        Optional optional = reservationRepository.findByKakaoId(kakaoDTO.getId());
+        if(optional.isPresent()){
+            reservation = (Reservation) optional.get();
+        }else {
+            reservation = new Reservation();
+            reservation.setKakaoId(kakaoDTO.getId());
+            reservationRepository.save(reservation);
+        }
+
+        return reservation;
+
     }
 
 //    public List<String> getRequests(){

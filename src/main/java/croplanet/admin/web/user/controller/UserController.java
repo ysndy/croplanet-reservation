@@ -2,8 +2,10 @@ package croplanet.admin.web.user.controller;
 
 import croplanet.admin.domain.entity.Reservation;
 import croplanet.admin.domain.repository.ReservationRepository;
+import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.dto.KakaoDTO;
 import croplanet.admin.web.user.service.KakaoService;
+import croplanet.admin.web.user.service.UserMethodService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -23,7 +24,8 @@ import java.util.Optional;
 public class UserController {
 
     private final KakaoService kakaoService;
-    private final ReservationRepository reservationRepository;
+    private final UserMethodService userMethodService;
+    private final FileManager fileManager;
 
     @GetMapping
     public String userPage(Model model, HttpServletRequest request){
@@ -33,8 +35,8 @@ public class UserController {
         model.addAttribute("query", session.getId());
 
         //어드민 페이지 에서 작성한 마케팅 문구 추가
-        String comment = "qweqwe\nqweqwe\nqweqwe\nqweqwe";
-        model.addAttribute("comment", comment);
+        StringBuilder fileContent = fileManager.getMarketingComment();
+        model.addAttribute("comment", fileContent.toString()); // 모델에 파일 내용 추가
 
         return "user/user_page";
     }
@@ -72,16 +74,7 @@ public class UserController {
         log.debug("kakaoInfo={}", kakaoInfo);
 
         //사전예약 순위 추가
-        Reservation reservation;
-        Optional optional = reservationRepository.findByKakaoId(kakaoInfo.getId());
-        if(optional.isPresent()){
-            reservation = (Reservation) optional.get();
-        }else {
-            reservation = new Reservation();
-            reservation.setKakaoId(kakaoInfo.getId());
-            reservationRepository.save(reservation);
-        }
-
+        Reservation reservation = userMethodService.addReservation(kakaoInfo);
         model.addAttribute("reservation", reservation);
 
         return "user/reservation";

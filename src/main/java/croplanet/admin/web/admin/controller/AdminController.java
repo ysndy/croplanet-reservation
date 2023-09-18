@@ -2,14 +2,18 @@ package croplanet.admin.web.admin.controller;
 
 import croplanet.admin.domain.entity.UserMethod;
 import croplanet.admin.domain.repository.UserMethodRepository;
+import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.service.UserMethodService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin")
@@ -19,18 +23,31 @@ public class AdminController {
 
     private final UserMethodService userMethodService;
     private final UserMethodRepository userMethodRepository;
+    private final FileManager fileManager;
 
     @GetMapping("/table")
     public String table(@RequestParam(defaultValue = "0") int page, Model model){
-        //List<UserMethod> userMethods = userMethodService.getUserMethods();
         Page<UserMethod> userMethods = userMethodRepository.findAll(PageRequest.of(page, 30));
         model.addAttribute("userMethods", userMethods);
         return "admin/user_method/table";
     }
 
     @GetMapping("/editor")
-    public String editor(){
+    public String editor(Model model){
+        StringBuilder fileContent = fileManager.getMarketingComment();
+        model.addAttribute("fileContent", fileContent.toString()); // 모델에 파일 내용 추가
         return "admin/editor";
+    }
+
+    @PostMapping("/editor")
+    public ResponseEntity editor_save(@RequestBody String comment){
+        try {
+            fileManager.saveMarketingComment(comment);
+        } catch (IOException e){
+            log.error("", e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
