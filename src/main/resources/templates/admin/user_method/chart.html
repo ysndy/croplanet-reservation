@@ -23,47 +23,8 @@
     <canvas id="chart_line"></canvas>
     <canvas id="chart_bar"></canvas>
 
-
-    <!--
-    <script th:inline="javascript" th:src="@{/js/admin/chart.js}"></script>
-    -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:inline="javascript">
-
-        // 현재 페이지의 URL 가져오기
-        var currentUrl = window.location.href;
-
-        console.log(currentUrl);
-
-        // URLSearchParams 객체 생성
-        var urlSearchParams = new URLSearchParams(currentUrl);
-
-        console.log(urlSearchParams);
-
-        // 파라미터 이름으로 확인
-        var paramName = 'start_date'; // 파라미터 이름을 여기에 입력
-        if (urlSearchParams.has(paramName)) {
-            // 파라미터가 존재하는 경우
-            var paramValue = urlSearchParams.get(paramName);
-            console.log(paramName + " 파라미터 값: " + paramValue);
-        } else {
-            // 파라미터가 존재하지 않는 경우
-            console.log(paramName + " 파라미터는 존재하지 않습니다.");
-        }
-        // // 오늘 날짜를 생성
-        // var today = new Date();
-        //
-        // // 시작 날짜를 오늘로부터 7일 전으로 설정
-        // var startDate = new Date(today);
-        // startDate.setDate(today.getDate() - 7);
-        //
-        // // 시작 날짜 input 태그의 value 속성에 설정
-        // var startDateInput = document.getElementById("start_date");
-        // startDateInput.valueAsDate = startDate;
-        //
-        // // 종료 날짜 input 태그의 value 속성에 오늘 날짜를 설정
-        // var endDateInput = document.getElementById("end_date");
-        // endDateInput.valueAsDate = today;
 
         const line = document.getElementById('chart_line');
         const bar = document.getElementById('chart_bar');
@@ -138,9 +99,6 @@
                 }
             }
         });
-
-
-
 
     </script>
 </section>
