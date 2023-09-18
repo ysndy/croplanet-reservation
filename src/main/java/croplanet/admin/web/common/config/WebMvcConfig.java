@@ -17,6 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // TestController 인터셉터를 등록합니다.
         registry.addInterceptor(userMethodInterceptor)
                 .order(1)
-                .addPathPatterns("/users/**");
+                .addPathPatterns("/users", "/users/**");
     }
 }

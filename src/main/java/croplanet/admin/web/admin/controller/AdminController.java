@@ -4,6 +4,7 @@ import croplanet.admin.domain.entity.Reservation;
 import croplanet.admin.domain.entity.UserMethod;
 import croplanet.admin.domain.repository.ReservationRepository;
 import croplanet.admin.domain.repository.UserMethodRepository;
+import croplanet.admin.web.admin.dto.ChartDto;
 import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.service.UserMethodService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -63,6 +72,47 @@ public class AdminController {
 
     }
 
+    @GetMapping("/chart")
+    public String chart(HttpServletRequest request, ChartDto chartDto, Model model){
+        log.info("chartDto = {}", chartDto);
+
+        if (chartDto.getStart_date() == null || chartDto.getStart_date().isEmpty()) {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime oneWeekAgo = now.minus(1, ChronoUnit.WEEKS);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            return "redirect:/admin/chart?start_date="+oneWeekAgo.format(formatter)+"&end_date="+now.format(formatter);
+
+        }else {
+
+            //해쉬 맵 생성 구조: key:날짜, value:해쉬 맵 (key:행동, value:카운트)
+            Map<String, Map<String, Long>> map = new HashMap<>();
+
+            //시작 날짜 부터 종료 날짜 까지 리스트 뽑기
+            List<String> dates = userMethodRepository.findDates(chartDto.getStart_date(), chartDto.getEnd_date());
+            for (int i = 0; i < dates.size(); i++) {
+                map.put(dates.get(i), new HashMap<>());
+            }
+
+            //행동 리스트 뽑기
+            List<String> actions = userMethodRepository.findActionsDistinct();
+
+            //날짜에 대한 행동의 카운트 뽑기
+            for (int i = 0; i < dates.size(); i++) {
+                for (int j = 0; j < actions.size(); j++) {
+                    map.get(dates.get(i)).put(actions.get(j), userMethodRepository.findByDateAndAction(dates.get(i), actions.get(j)));
+                    log.info("date={}, action={}, count={}", dates.get(i), actions.get(j), map.get(dates.get(i)).get(actions.get(j)));
+                }
+            }
+
+            model.addAttribute("map", map);
+            model.addAttribute("dates", dates);
+            model.addAttribute("actions", actions);
+        }
+
+
+        return "admin/user_method/chart";
+    }
     /**
      * @return
      */
