@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>설문 조사 추가</title>
+</head>
+<body>
+
+<section>
+
+    <form th:action="@{/admin/surveys}" th:object="${surveyResultsDto}">
+
+        <input type="text" th:field="*{title}">
+        <input type="checkbox" th:field="*{isEssential}">
+
+        <div th:each="surveyType : ${surveyTypes}">
+            <input type="radio" th:field="*{type}" th:value="${surveyType.name()}">
+            <label th:for="${#ids.prev('type')}" th:text="${surveyType.description}"></label>
+        </div>
+
+        <button type="submit"> 추가 </button>
+
+    </form>
+
+
+</section>
+
+</body>
+</html>

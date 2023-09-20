@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>설문 조사 결과</title>
+</head>
+<body>
+
+<section>
+
+    <div th:each="survey : ${surveys}">
+
+        <p th:text="${survey.title}"> 제목 </p>
+        <canvas th:id="${survey.id}" th:if="${!survey.type.description.toString().equals('text')}"></canvas>
+        <div th:if="${survey.type.description.toString().equals('text')}" th:each="surveyResponse : ${surveyResponses}">
+
+            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="${surveyResponse.answer}"> 설문 응답 </p>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+
+        const surveys = [[${surveys}]];
+        const surveyResponses = [[${surveyResponses}]];
+
+        for(let i = 0; i < surveys.length; i++){
+            const survey = surveys[i];
+            const questions = [];
+            const data = [];
+
+            for(let j=0; j<survey.questions.length; j++){
+                questions.push(survey.questions[j].question);
+                let count = 0;
+                for(let k=0; k<surveyResponses.length; k++){
+
+                    if(surveyResponses[k].survey.id == survey.id && surveyResponses[k].answer == questions[j]) count++;
+
+                }
+                data.push(count);
+            }
+
+            const pie = document.getElementById(survey.id);
+            new Chart(pie, {
+                type: 'pie',
+                data: {
+                    labels: questions,
+                    datasets: [{
+                        label: '# of Clicks',
+                        data: data,
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+        }
+
+
+
+    </script>
+
+</section>
+
+</body>
+</html>

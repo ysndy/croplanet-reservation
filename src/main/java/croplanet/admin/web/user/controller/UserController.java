@@ -1,7 +1,11 @@
 package croplanet.admin.web.user.controller;
 
 import croplanet.admin.domain.entity.Reservation;
-import croplanet.admin.domain.repository.ReservationRepository;
+import croplanet.admin.domain.entity.survey.Survey;
+import croplanet.admin.domain.entity.survey.SurveyResponse;
+import croplanet.admin.domain.repository.survey.SurveyRepository;
+import croplanet.admin.domain.repository.survey.SurveyResponseRepository;
+import croplanet.admin.web.common.dto.SurveyResponseDto;
 import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.dto.KakaoDTO;
 import croplanet.admin.web.user.service.KakaoService;
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -26,6 +33,8 @@ public class UserController {
     private final KakaoService kakaoService;
     private final UserMethodService userMethodService;
     private final FileManager fileManager;
+    private final SurveyRepository surveyRepository;
+    private final SurveyResponseRepository surveyResponseRepository;
 
     @GetMapping
     public String userPage(Model model, HttpServletRequest request){
@@ -37,6 +46,17 @@ public class UserController {
         //어드민 페이지 에서 작성한 마케팅 문구 추가
         StringBuilder fileContent = fileManager.getMarketingComment();
         model.addAttribute("comment", fileContent.toString()); // 모델에 파일 내용 추가
+
+        //저장된 설문조사를 모델에 추가
+        List<Survey> surveys = surveyRepository.findAll();
+
+        model.addAttribute("surveys", surveys);
+
+        SurveyResponseDto surveyResponseDto = new SurveyResponseDto();
+        for(int i=0; i<surveys.size(); i++){
+            surveyResponseDto.getResponses().put(surveys.get(i).getId(), new LinkedList<>());
+        }
+        model.addAttribute("surveyResponseDto", new SurveyResponseDto());
 
         return "user/user_page";
     }
@@ -103,6 +123,34 @@ public class UserController {
     @ResponseBody
     public ResponseEntity scrollBottom(){
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/survey")
+    public String survey(SurveyResponseDto surveyResultsDto){
+
+        log.info("surveyDto = {}", surveyResultsDto);
+
+        Map<Long, List<String>> responses = surveyResultsDto.getResponses();
+
+        for (Long surveyId : responses.keySet()) {
+
+            Survey survey = surveyRepository.findById(surveyId).get();
+            List<String> answerStrings = responses.get(surveyId);
+
+            for (String answerString : answerStrings) {
+
+                SurveyResponse surveyResponse = new SurveyResponse();
+                surveyResponse.setSurvey(survey);
+                surveyResponse.setAnswer(answerString);
+
+                surveyResponseRepository.save(surveyResponse);
+
+            }
+
+        }
+
+        return "redirect:/users";
+
     }
 
 }

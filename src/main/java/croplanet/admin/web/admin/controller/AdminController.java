@@ -2,8 +2,12 @@ package croplanet.admin.web.admin.controller;
 
 import croplanet.admin.domain.entity.Reservation;
 import croplanet.admin.domain.entity.UserMethod;
+import croplanet.admin.domain.entity.survey.Survey;
+import croplanet.admin.domain.entity.survey.SurveyResponse;
 import croplanet.admin.domain.repository.ReservationRepository;
+import croplanet.admin.domain.repository.survey.SurveyRepository;
 import croplanet.admin.domain.repository.UserMethodRepository;
+import croplanet.admin.domain.repository.survey.SurveyResponseRepository;
 import croplanet.admin.web.admin.dto.ChartDto;
 import croplanet.admin.web.common.util.FileManager;
 import croplanet.admin.web.user.service.UserMethodService;
@@ -35,6 +39,8 @@ public class AdminController {
     private final UserMethodService userMethodService;
     private final UserMethodRepository userMethodRepository;
     private final ReservationRepository reservationRepository;
+    private final SurveyRepository surveyRepository;
+    private final SurveyResponseRepository surveyResponseRepository;
     private final FileManager fileManager;
 
     @GetMapping("/table")
@@ -55,6 +61,7 @@ public class AdminController {
     public ResponseEntity editor_save(@RequestBody String comment){
         try {
             fileManager.saveMarketingComment(comment);
+            log.info(comment);
         } catch (IOException e){
             log.error("", e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -113,9 +120,43 @@ public class AdminController {
 
         return "admin/user_method/chart";
     }
-    /**
-     * @return
-     */
+
+    @GetMapping("/surveys/result")
+    public String surveyResult(Model model){
+
+        List<Survey> surveys = surveyRepository.findAll();
+        List<SurveyResponse> surveyResponses = surveyResponseRepository.findAll();
+
+        model.addAttribute("surveys", surveys);
+        model.addAttribute("surveyResponses", surveyResponses);
+
+        return "admin/survey/result";
+    }
+
+//
+//    @PostMapping("/surveys")
+//    public String addSurvey(SurveyResultsDto surveyResultsDto){
+//
+//        //추후에 서비스로 뽑기
+////        Survey survey = new Survey();
+////        survey.setQuestions(surveyDto.getQuestions());
+////        survey.setIsEssential(surveyDto.getIsEssential());
+////        survey.setTitle(surveyDto.getTitle());
+////        survey.setType(surveyDto.getType());
+////
+////        surveyRepository.save(survey);
+//
+//        return "redirect:/surveys/edit";
+//    }
+
+//    @GetMapping("/surveys/edit")
+//    public String editSurvey(SurveyResultsDto surveyResultsDto, Model model){
+//
+//
+//        model.addAttribute("surveyTypes", SurveyType.values());
+//        return "admin/survey/edit";
+//    }
+
 
     //TODO 그래프 형식 선택
     //TODO 날짜별 선 그래프 에서 기간 선택

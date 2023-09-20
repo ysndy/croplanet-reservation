@@ -109,8 +109,29 @@
         <!-- 설문조사 -->
         <div id="modalBackdrop" class="modal-backdrop"></div>
         <div id="bottomSheet" class="bottom-sheet">
-            <p> 바텀시트 </p>
-            <button onclick="post()">전달</button>
+            <form th:action="@{/users/survey}" method="post" th:object="${surveyResponseDto}">
+                <div>
+                    <button> < </button>
+                    <div class="title_container" th:each=" survey : ${surveys}">
+                        <p th:text="${survey.title}" class="title"> 제목 </p>
+                    </div>
+                    <button> > </button>
+                </div>
+                <div class="survey_container" th:each=" survey : ${surveys}">
+                    <div>
+                        <p th:text="|${surveyStat.count}/${surveyStat.size}|"> 1/3 </p>
+                    </div>
+                    <div id="question_container" th:each=" question : ${survey.questions}">
+                        <div>
+                            <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}" th:value="${question.question}">
+                            <label th:text="${question.question}">질문</label>
+                        </div>
+                    </div>
+                </div>
+                <button> 소식받기 </button>
+                <button type="submit">응답 제출하기</button>
+            </form>
+
         </div>
 
     </div>

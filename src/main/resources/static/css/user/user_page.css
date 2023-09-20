@@ -193,6 +193,7 @@ nav form button img{
 
 /* 바텀시트 스타일 */
 .bottom-sheet {
+    overflow: auto;
     position: fixed;
     bottom: -100%; /* 시작 위치를 아래로 설정 */
     left: 0;
