@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>요청 사항 집계</title>
+</head>
+<body>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th th:text="#{label.userMethod.index}"> Index </th>
+                    <th th:text="#{label.userMethod.date}"> 날짜 </th>
+                    <th th:text="#{label.userMethod.action}"> 행동 </th>
+                    <th th:text="#{label.userMethod.id}"> ID </th>
+                    <th th:text="#{label.userMethod.query}"> 추천인 ID </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="userMethod : ${userMethods.content}">
+                    <td th:text="${userMethod.index}"></td>
+                    <td th:text="${userMethod.date}"></td>
+                    <td th:text="${userMethod.action}"></td>
+                    <td th:text="${userMethod.id}"></td>
+                    <td th:text="${userMethod.query}"></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div th:if="${userMethods.totalPages > 1}">
+            <ul class="pagination">
+                <li th:each="i : ${#numbers.sequence(0, userMethods.totalPages - 1)}">
+                    <a th:href="@{/admin/table(page=${i})}" th:text="${i} + 1"></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

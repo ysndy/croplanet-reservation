@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::div})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>사용자 행동</title>
 </head>
 <body>
 
-<section>
+<div class="page-wrapper">
 
     <form th:action="@{/admin/chart}" method="get" th:object="${chartDto}">
 
@@ -101,7 +101,7 @@
         });
 
     </script>
-</section>
+</div>
 
 </body>
 </html>

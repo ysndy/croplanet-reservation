@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::div})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>사전 예약 현황</title>
 </head>
 <body>
-    <section>
+    <div class="page-wrapper">
         <table>
             <thead>
             <tr>
@@ -32,6 +32,6 @@
                 </li>
             </ul>
         </div>
-    </section>
+    </div>
 </body>
 </html>

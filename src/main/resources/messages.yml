@@ -1,7 +1,0 @@
-label:
-  userMethod:
-    index: 순번
-    date: 날짜
-    action: 행동
-    id: 아이디
-    query: 추천인 ID

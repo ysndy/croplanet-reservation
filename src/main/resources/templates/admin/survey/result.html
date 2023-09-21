@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::div})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>설문 조사 결과</title>
 </head>
 <body>
 
-<section>
+<div class="page-wrapper">
 
     <div th:each="survey : ${surveys}">
 
@@ -61,7 +61,7 @@
 
     </script>
 
-</section>
+</div>
 
 </body>
 </html>

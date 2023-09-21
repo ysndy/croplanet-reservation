@@ -133,4 +133,9 @@ public class AdminController {
         return "admin/survey/result";
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "admin/test/layout";
+    }
+
 }
