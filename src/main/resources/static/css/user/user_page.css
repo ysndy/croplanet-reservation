@@ -1,5 +1,7 @@
 body {
     margin: 0px;
+    font-family: 'AppleSDGothicNeo', 'Noto Sans KR', sans-serif;
+    font-weight: 100;
 }
 
 nav {
@@ -15,6 +17,7 @@ nav p {
     flex-grow: 1; /* 가용 공간을 모두 사용하여 가운데로 확장 */
     color: #2C2C2C;
     font-size: 17px;
+    padding-left: 36px;
 }
 
 nav form button {
@@ -54,7 +57,7 @@ nav form button img{
 .name {
     font-size: 18px;
     height: 27px;
-    margin: 0px;
+    margin: 3px 0 3px 0;
     color: #2C2C2C;
 }
 
@@ -165,6 +168,7 @@ nav form button img{
     font-weight: bold;
     border-radius: 5px;
     align-items: center;
+    border: none;
 }
 
 .bottom .like {
@@ -193,7 +197,6 @@ nav form button img{
 
 /* 바텀시트 스타일 */
 .bottom-sheet {
-    overflow: auto;
     position: fixed;
     bottom: -100%; /* 시작 위치를 아래로 설정 */
     left: 0;
@@ -208,9 +211,120 @@ nav form button img{
     border-top-left-radius: 10px;
 }
 
+.bottom-sheet form {
+    height: 100%;
+}
+
+.bottom-sheet header {
+
+    height: 20%;
+    display: flex;
+
+}
+
+.bottom-sheet header article{
+
+    width: 60%;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.bottom-sheet header article div{
+
+    height: 100%;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.bottom-sheet header article div p{
+
+    margin: 0px;
+
+}
+
+.bottom-sheet header button{
+
+    width: 20%;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+
+}
+
+.bottom-sheet header button img{
+
+    width: 64px;
+    height: 64px;
+
+}
+
+
+.bottom-sheet header article.title_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.bottom-sheet section {
+
+    height: 60%;
+    padding: 10px 16px 10px 16px;
+    overflow: auto;
+
+}
+
+.bottom-sheet section header p{
+
+    text-align: center;
+    width: 100%;
+
+}
+
+.bottom-sheet footer {
+
+    height: 20%;
+    font-size: 20px;
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+
+}
+
+.bottom-sheet footer button{
+
+    width: 165.5px;
+    height: 52px;
+    margin: 0 5px;
+    font-weight: bold;
+    border: 1px solid #5B46FF;
+    border-radius: 5px;
+
+}
+.bottom-sheet footer button.left{
+    background: white;
+    color: #5B46FF;
+}
+.bottom-sheet footer button.right{
+    background: #5B46FF;
+    color: #ffffff;
+}
+
 /* 아래서 위로 올라오는 애니메이션 클래스 */
 .bottom-sheet.active {
     bottom: 0;
+}
+
+.question {
+    font-size: 20px;
+    height: 30px;
+    margin-bottom: 10px;
 }
 
 /* 슬라이드 쇼 컨테이너 스타일 */
@@ -251,18 +365,18 @@ nav form button img{
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 5px 5px 0;
 }
 
 /* 다음 버튼 스타일 */
 .next {
     right: 0;
-    border-radius: 3px 0 0 3px;
+    border-radius: 5px 0 0 5px;
 }
 
 /* 버튼에 호버 효과 스타일 */
 .prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .container-comment {

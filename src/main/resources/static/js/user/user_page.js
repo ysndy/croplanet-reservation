@@ -67,7 +67,14 @@ function buy(){
     $.ajax({
         url: "/users/buy",
         type: "POST"
-    })
+    });
+
+    modalBackDrop();
+
+}
+
+function modalBackDrop(){
+
     const bottomSheet = document.getElementById("bottomSheet");
     const modalBackdrop = document.getElementById("modalBackdrop");
 
@@ -120,11 +127,19 @@ function post(){
 
 
 <!-- 스와이프 관련 코드 -->
-var slideIndex = 0;
-showSlides(slideIndex);
+var slideIndexImage = 0;
+var slidesImage = document.getElementsByClassName("mySlides");
+slideIndexImage = showSlides(slideIndexImage, slideIndexImage, slidesImage);
 
 var slideshowContainer = document.getElementById('slideshow');
 var slideNumberElement = document.getElementById('slide-number');
+
+var slideIndexSurvey = 0;
+var slidesSurvey = document.getElementsByClassName("survey_container");
+var slidesSurveyTitle = document.getElementsByClassName("title_container");
+showSlides(0, slideIndexSurvey, slidesSurveyTitle);
+slideIndexSurvey = showSlides(0, slideIndexSurvey, slidesSurvey);
+
 
 // 스와이프 이벤트 감지
 var startX, startY, endX, endY;
@@ -157,35 +172,43 @@ function handleSwipe() {
 }
 
 // 이전/다음 슬라이드 표시 함수
-function plusSlides(n) {
-    showSlides(slideIndex += n);
+function plusSlidesImage(n) {
+
+    slideIndexImage = showSlides(slideIndexImage += n, slideIndexImage, slidesImage);
+
+    // 현재 사진 번호와 전체 사진 갯수 업데이트
+    if(slideNumberElement != undefined) {
+        slideNumberElement.textContent = (slideIndexImage + 1) + "/" + slidesImage.length;
+    }
+
     $.ajax({
         url: "/users/swipe",
         type: "POST"
     })
 }
 
+function plusSlidesSurvey(n){
+    slideIndexSurvey = showSlides(slideIndexSurvey+=n, slideIndexSurvey, slidesSurvey);
+    showSlides(slideIndexSurvey, slideIndexSurvey, slidesSurveyTitle);
+}
+
 // 현재 슬라이드 인덱스 설정 및 슬라이드 표시 함수
-function showSlides(n) {
-    var slides = document.getElementsByClassName("mySlides");
+function showSlides(n, slidesIndex, slides) {
+    var si = slidesIndex;
     if (n >= slides.length) {
-        slideIndex = 0;
+        si = 0;
     }
     if (n < 0) {
-        slideIndex = slides.length - 1;
+        si = slides.length - 1;
     }
     for (var i = 0; i < slides.length; i++) {
 
-        //slides[i].style.left = "-100%"; // 모든 이미지를 왼쪽으로 숨김
         slides[i].style.display = "none";
     }
-    slides[slideIndex].style.display = "block";
-    //slides[slideIndex].style.left = "0"; // 현재 슬라이드를 보이도록 left 속성 변경
+    slides[si].style.display = "flex";
+    slides[si].style.flexDirection = "column";
+    return si;
 
-    // 현재 사진 번호와 전체 사진 갯수 업데이트
-    if(slideNumberElement != undefined) {
-        slideNumberElement.textContent = (slideIndex + 1) + "/" + slides.length;
-    }
 }
 
 <!-- 스크롤 관련 -->
