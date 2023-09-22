@@ -1,6 +1,6 @@
 package croplanet.admin.action.repository;
 
-import croplanet.admin.action.domain.UserMethod;
+import croplanet.admin.action.domain.Action;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserMethodRepository extends JpaRepository<UserMethod, Long>{
+public interface ActionRepository extends JpaRepository<Action, Long>{
 
     //Long save(Log log);
     //Long count();
 
     //요청 url 목록을 조회
-    @Query("select distinct u.action from UserMethod u")
+    @Query("select distinct u.action from Action u")
     List<String> findActionsDistinct();
 
 //    //요청 url 횟수를 조회
@@ -23,18 +23,18 @@ public interface UserMethodRepository extends JpaRepository<UserMethod, Long>{
 //
     //전체 날짜 불러오기
     @Query(value = "SELECT DATE_TRUNC('DAY', u.date) AS truncated_date " +
-            "FROM USER_METHOD u " +
+            "FROM Action u " +
             "GROUP BY DATE_TRUNC('DAY', u.date)", nativeQuery = true)
     List<String> findAllDates();
 
     //전체 날짜 불러오기
     @Query(value = "SELECT DATE_TRUNC('DAY', u.date) AS truncated_date " +
-            "FROM USER_METHOD u " +
+            "FROM Action u " +
             "WHERE DATE_TRUNC('DAY', u.date) BETWEEN :startDate AND :endDate " +
             "GROUP BY DATE_TRUNC('DAY', u.date)", nativeQuery = true)
     List<String> findDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
-    @Query(value = "SELECT COUNT(*) from USER_METHOD u where DATE_TRUNC('DAY', u.date) = :date and u.action = :action", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) from Action u where DATE_TRUNC('DAY', u.date) = :date and u.action = :action", nativeQuery = true)
     Long findByDateAndAction(@Param("date") String date, @Param("action") String action);
 
 

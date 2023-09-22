@@ -1,42 +1,40 @@
 package croplanet.admin.action.domain;
 
 import croplanet.admin.common.entity.BaseTimeEntity;
+import croplanet.admin.user.domain.User;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Getter @Setter
-public class UserMethod extends BaseTimeEntity {
+public class Action extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long index;
 
-    private String id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String action;
 
     @Nullable
     private String query;
 
-    public UserMethod(String id, String action, String query) {
-        this.id = id;
+    public Action(User user, String action, String query) {
+        this.user = user;
         this.action = action;
         this.query = query;
     }
 
-    public UserMethod() {
+    public Action() {
 
     }
 
     /**
      * 비즈니스 로직
      */
-
-    public static UserMethod createUserMethod(String action, String query){
-        return new UserMethod(UUID.randomUUID().toString(), action, query);
-    }
 
 }

@@ -1,16 +1,16 @@
 package croplanet.admin.admin.controller;
 
 import croplanet.admin.reservation.domain.Reservation;
-import croplanet.admin.action.domain.UserMethod;
+import croplanet.admin.action.domain.Action;
 import croplanet.admin.survey.domain.Survey;
 import croplanet.admin.survey.domain.SurveyResponse;
 import croplanet.admin.reservation.repository.ReservationRepository;
 import croplanet.admin.survey.repository.SurveyRepository;
-import croplanet.admin.action.repository.UserMethodRepository;
+import croplanet.admin.action.repository.ActionRepository;
 import croplanet.admin.survey.repository.SurveyResponseRepository;
 import croplanet.admin.admin.dto.ChartDto;
 import croplanet.admin.common.util.FileManager;
-import croplanet.admin.action.service.UserMethodService;
+import croplanet.admin.action.service.ActionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -36,8 +36,8 @@ import java.util.Map;
 @Slf4j
 public class AdminController {
 
-    private final UserMethodService userMethodService;
-    private final UserMethodRepository userMethodRepository;
+    private final ActionService actionService;
+    private final ActionRepository actionRepository;
     private final ReservationRepository reservationRepository;
     private final SurveyRepository surveyRepository;
     private final SurveyResponseRepository surveyResponseRepository;
@@ -45,7 +45,7 @@ public class AdminController {
 
     @GetMapping("/table")
     public String table(@RequestParam(defaultValue = "0") int page, Model model){
-        Page<UserMethod> userMethods = userMethodRepository.findAll(PageRequest.of(page, 30));
+        Page<Action> userMethods = actionRepository.findAll(PageRequest.of(page, 30));
         model.addAttribute("userMethods", userMethods);
         return "admin/user_method/table";
     }
@@ -96,18 +96,18 @@ public class AdminController {
             Map<String, Map<String, Long>> map = new HashMap<>();
 
             //시작 날짜 부터 종료 날짜 까지 리스트 뽑기
-            List<String> dates = userMethodRepository.findDates(chartDto.getStart_date(), chartDto.getEnd_date());
+            List<String> dates = actionRepository.findDates(chartDto.getStart_date(), chartDto.getEnd_date());
             for (int i = 0; i < dates.size(); i++) {
                 map.put(dates.get(i), new HashMap<>());
             }
 
             //행동 리스트 뽑기
-            List<String> actions = userMethodRepository.findActionsDistinct();
+            List<String> actions = actionRepository.findActionsDistinct();
 
             //날짜에 대한 행동의 카운트 뽑기
             for (int i = 0; i < dates.size(); i++) {
                 for (int j = 0; j < actions.size(); j++) {
-                    map.get(dates.get(i)).put(actions.get(j), userMethodRepository.findByDateAndAction(dates.get(i), actions.get(j)));
+                    map.get(dates.get(i)).put(actions.get(j), actionRepository.findByDateAndAction(dates.get(i), actions.get(j)));
                     log.info("date={}, action={}, count={}", dates.get(i), actions.get(j), map.get(dates.get(i)).get(actions.get(j)));
                 }
             }

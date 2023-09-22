@@ -1,6 +1,7 @@
 package croplanet.admin.user.controller;
 
 import croplanet.admin.reservation.domain.Reservation;
+import croplanet.admin.reservation.service.ReservationService;
 import croplanet.admin.survey.domain.Survey;
 import croplanet.admin.survey.domain.SurveyResponse;
 import croplanet.admin.survey.repository.SurveyRepository;
@@ -9,7 +10,7 @@ import croplanet.admin.survey.dto.SurveyResponseDto;
 import croplanet.admin.common.util.FileManager;
 import croplanet.admin.user.dto.KakaoDTO;
 import croplanet.admin.user.service.KakaoService;
-import croplanet.admin.action.service.UserMethodService;
+import croplanet.admin.action.service.ActionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,11 @@ import java.util.Map;
 public class UserController {
 
     private final KakaoService kakaoService;
-    private final UserMethodService userMethodService;
+    private final ActionService actionService;
     private final FileManager fileManager;
     private final SurveyRepository surveyRepository;
     private final SurveyResponseRepository surveyResponseRepository;
+    private final ReservationService reservationService;
 
     @GetMapping
     public String userPage(Model model, HttpServletRequest request){
@@ -95,7 +97,7 @@ public class UserController {
         log.debug("kakaoInfo={}", kakaoInfo);
 
         //사전예약 순위 추가
-        Reservation reservation = userMethodService.addReservation(kakaoInfo);
+        Reservation reservation = reservationService.addReservation(kakaoInfo);
         model.addAttribute("reservation", reservation);
 
         return "user/reservation";

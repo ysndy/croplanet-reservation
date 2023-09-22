@@ -41,20 +41,20 @@
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th th:text="#{label.userMethod.index}" class="border-top-0"> Index </th>
-                                            <th th:text="#{label.userMethod.date}" class="border-top-0"> 날짜 </th>
-                                            <th th:text="#{label.userMethod.action}" class="border-top-0"> 행동 </th>
-                                            <th th:text="#{label.userMethod.id}" class="border-top-0"> ID </th>
-                                            <th th:text="#{label.userMethod.query}" class="border-top-0"> 추천인 ID </th>
+                                            <th th:text="#{label.action.index}" class="border-top-0"> Index </th>
+                                            <th th:text="#{label.action.date}" class="border-top-0"> 날짜 </th>
+                                            <th th:text="#{label.action.action}" class="border-top-0"> 행동 </th>
+                                            <th th:text="#{label.action.id}" class="border-top-0"> ID </th>
+                                            <th th:text="#{label.action.query}" class="border-top-0"> 추천인 ID </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="userMethod : ${userMethods.content}">
-                                            <td th:text="${userMethod.index}"></td>
-                                            <td th:text="${userMethod.date}"></td>
-                                            <td th:text="${userMethod.action}"></td>
-                                            <td th:text="${userMethod.id}"></td>
-                                            <td th:text="${userMethod.query}"></td>
+                                        <tr th:each="action : ${userMethods.content}">
+                                            <td th:text="${action.index}"></td>
+                                            <td th:text="${action.date}"></td>
+                                            <td th:text="${action.action}"></td>
+                                            <td th:text="${action.user.sessionId}"></td>
+                                            <td th:text="${action.query}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -1,14 +1,14 @@
 package croplanet.admin.domain;
 
-import croplanet.admin.action.repository.UserMethodRepository;
+import croplanet.admin.action.repository.ActionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserMethodRepositoryTest {
+class ActionRepositoryTest {
 
-    @Autowired private UserMethodRepository userMethodRepository;
+    @Autowired private ActionRepository actionRepository;
 
     @Test
     void findRequestDomainDistinct() {

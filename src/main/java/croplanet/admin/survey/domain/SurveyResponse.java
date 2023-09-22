@@ -1,5 +1,6 @@
 package croplanet.admin.survey.domain;
 
+import croplanet.admin.user.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,10 @@ public class SurveyResponse {
     private Survey survey;
 
     private String answer;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }

@@ -1,6 +1,8 @@
 package croplanet.admin.action.interceptor;
 
-import croplanet.admin.action.service.UserMethodService;
+import croplanet.admin.action.service.ActionService;
+import croplanet.admin.common.util.Constant;
+import croplanet.admin.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -8,20 +10,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class UserMethodInterceptor implements HandlerInterceptor {
+public class ActionInterceptor implements HandlerInterceptor {
 
-    private final UserMethodService userMethodService;
+    private final ActionService actionService;
 
     //사용자 행동을 DB에 저장
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("request = {}", request.getRequestURI());
-        HttpSession session = request.getSession(true);
 
         String action;
 
@@ -33,7 +33,10 @@ public class UserMethodInterceptor implements HandlerInterceptor {
 
         String query = request.getParameter("query");
 
-        userMethodService.save(session.getId(), action, query);
+        User user = (User) request.getSession().getAttribute(Constant.SESSION_USER);
+        log.info("user = {}", user);
+        actionService.save(user, action, query);
+
         return true;
     }
 

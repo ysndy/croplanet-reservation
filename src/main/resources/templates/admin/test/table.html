@@ -9,20 +9,20 @@
         <table>
             <thead>
                 <tr>
-                    <th th:text="#{label.userMethod.index}"> Index </th>
-                    <th th:text="#{label.userMethod.date}"> 날짜 </th>
-                    <th th:text="#{label.userMethod.action}"> 행동 </th>
-                    <th th:text="#{label.userMethod.id}"> ID </th>
-                    <th th:text="#{label.userMethod.query}"> 추천인 ID </th>
+                    <th th:text="#{label.action.index}"> Index </th>
+                    <th th:text="#{label.action.date}"> 날짜 </th>
+                    <th th:text="#{label.action.action}"> 행동 </th>
+                    <th th:text="#{label.action.id}"> ID </th>
+                    <th th:text="#{label.action.query}"> 추천인 ID </th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="userMethod : ${userMethods.content}">
-                    <td th:text="${userMethod.index}"></td>
-                    <td th:text="${userMethod.date}"></td>
-                    <td th:text="${userMethod.action}"></td>
-                    <td th:text="${userMethod.id}"></td>
-                    <td th:text="${userMethod.query}"></td>
+                <tr th:each="action : ${userMethods.content}">
+                    <td th:text="${action.index}"></td>
+                    <td th:text="${action.date}"></td>
+                    <td th:text="${action.action}"></td>
+                    <td th:text="${action.id}"></td>
+                    <td th:text="${action.query}"></td>
                 </tr>
 
             </tbody>
