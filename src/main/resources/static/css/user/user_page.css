@@ -328,55 +328,24 @@ nav form button img{
 }
 
 /* 슬라이드 쇼 컨테이너 스타일 */
-.slideshow-container {
+.container section div.swiper {
     max-width: 800px;
     position: relative;
     margin: auto;
     overflow: hidden;
 }
 
-/* 이미지 슬라이드 스타일 */
-.mySlides {
-    display: none;
-    width: 100%;
-}
-
 /* 슬라이드 페이지 번호 스타일 */
-.slide-numbers {
+.container section .swiper-pagination {
+    width: 30px;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 20px;
+    left: 310px;
     font-size: 12px;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 5px 10px;
     border-radius: 15px;
-}
-
-/* 이전/다음 버튼 스타일 */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 5px 5px 0;
-}
-
-/* 다음 버튼 스타일 */
-.next {
-    right: 0;
-    border-radius: 5px 0 0 5px;
-}
-
-/* 버튼에 호버 효과 스타일 */
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .container-comment {

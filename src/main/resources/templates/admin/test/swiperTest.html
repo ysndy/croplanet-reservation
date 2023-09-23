@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Slider main container -->
+<div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- 이미지 슬라이드 -->
+        <div class="swiper-slide">
+            <img src="images/img_1.png" style="width:100%">
+        </div>
+
+        <div class="swiper-slide">
+            <img src="images/image2.png" style="width:100%">
+        </div>
+
+        <div class="swiper-slide">
+            <img src="images/image3.png" style="width:100%">
+        </div>
+
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+</div>
+
+<script>
+
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+    });
+
+</script>
+
+</body>
+</html>

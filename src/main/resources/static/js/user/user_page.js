@@ -1,3 +1,44 @@
+<!-- swiper -->
+const swiper_image = new Swiper('#swiper_image', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+        el: '#swiper_image_pagination',
+        type: 'fraction',
+    },
+    on: {
+        slideChange: function () {
+            $.ajax({
+                url: "/users/swipe",
+                type: "POST"
+            })
+        }
+    }
+
+});
+
+const swiper_survey = new Swiper('#swiper_survey', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+        el: '#swiper_survey_pagination',
+        type: 'fraction',
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '#swiper_survey_next',
+        prevEl: '#swiper_survey_prev',
+    },
+
+});
+
 <!-- 카카오 관련 -->
 Kakao.init('ffb1ac4b290c42a760a2af6a06801cba'); // 사용하려는 앱의 JavaScript 키 입력
 
@@ -121,94 +162,6 @@ function post(){
         url: "/users/post",
         type: "POST"
     })
-}
-
-
-
-
-<!-- 스와이프 관련 코드 -->
-var slideIndexImage = 0;
-var slidesImage = document.getElementsByClassName("mySlides");
-slideIndexImage = showSlides(slideIndexImage, slideIndexImage, slidesImage);
-
-var slideshowContainer = document.getElementById('slideshow');
-var slideNumberElement = document.getElementById('slide-number');
-
-var slideIndexSurvey = 0;
-var slidesSurvey = document.getElementsByClassName("survey_container");
-var slidesSurveyTitle = document.getElementsByClassName("title_container");
-showSlides(0, slideIndexSurvey, slidesSurveyTitle);
-slideIndexSurvey = showSlides(0, slideIndexSurvey, slidesSurvey);
-
-
-// 스와이프 이벤트 감지
-var startX, startY, endX, endY;
-slideshowContainer.addEventListener('touchstart', function (e) {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-});
-
-slideshowContainer.addEventListener('touchend', function (e) {
-    endX = e.changedTouches[0].clientX;
-    endY = e.changedTouches[0].clientY;
-    handleSwipe();
-});
-
-// 스와이프로 슬라이드 변경
-function handleSwipe() {
-    var deltaX = startX - endX;
-    var deltaY = startY - endY;
-    var sensitivity = 50; // 스와이프 감도 (조절 가능)
-
-    if (Math.abs(deltaX) > sensitivity && Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 0) {
-            // 오른쪽에서 왼쪽으로 스와이프 (다음 슬라이드 표시)
-            plusSlides(1);
-        } else {
-            // 왼쪽에서 오른쪽으로 스와이프 (이전 슬라이드 표시)
-            plusSlides(-1);
-        }
-    }
-}
-
-// 이전/다음 슬라이드 표시 함수
-function plusSlidesImage(n) {
-
-    slideIndexImage = showSlides(slideIndexImage += n, slideIndexImage, slidesImage);
-
-    // 현재 사진 번호와 전체 사진 갯수 업데이트
-    if(slideNumberElement != undefined) {
-        slideNumberElement.textContent = (slideIndexImage + 1) + "/" + slidesImage.length;
-    }
-
-    $.ajax({
-        url: "/users/swipe",
-        type: "POST"
-    })
-}
-
-function plusSlidesSurvey(n){
-    slideIndexSurvey = showSlides(slideIndexSurvey+=n, slideIndexSurvey, slidesSurvey);
-    showSlides(slideIndexSurvey, slideIndexSurvey, slidesSurveyTitle);
-}
-
-// 현재 슬라이드 인덱스 설정 및 슬라이드 표시 함수
-function showSlides(n, slidesIndex, slides) {
-    var si = slidesIndex;
-    if (n >= slides.length) {
-        si = 0;
-    }
-    if (n < 0) {
-        si = slides.length - 1;
-    }
-    for (var i = 0; i < slides.length; i++) {
-
-        slides[i].style.display = "none";
-    }
-    slides[si].style.display = "flex";
-    slides[si].style.flexDirection = "column";
-    return si;
-
 }
 
 <!-- 스크롤 관련 -->
