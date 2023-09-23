@@ -8,9 +8,10 @@
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-/>
+    />
     <link th:href="@{/css/user/user_page.css}" rel="stylesheet"/>
-
+    <link th:href="@{/css/user/bottom-sheet.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/@ivteplo/utilities.css@1.0.0/build/main.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 </head>
@@ -110,72 +111,62 @@
             <button onclick="like_bottom()" class="like">
                 <img th:src="@{/images/icon/like.png}"/>
             </button>
-            <button onclick="buy()" class="gift">선물받기</button>
+            <button class="gift" id="open-sheet" aria-controls="sheet">선물받기</button>
 
         </footer>
 
         <!-- 설문조사 -->
-        <div id="modalBackdrop" class="modal-backdrop" onclick="modalBackDrop()"></div>
-        <div id="bottomSheet" class="bottom-sheet">
-            <form th:action="@{/users/survey}" method="post" th:object="${surveyResponseDto}">
-
-                <!-- Slider main container -->
-                <div class="swiper" id="swiper_survey">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-button-prev" id="swiper_survey_prev"></div>
-                    <div class="swiper-button-next" id="swiper_survey_next"></div>
-                    <div class="swiper-wrapper">
-
-                        <section class="survey_container swiper-slide" th:each=" survey : ${surveys}">
-                            <div th:text="${survey.title}" class="survey_title"> 제목 </div>
-                            <div th:each=" question : ${survey.questions}" class="question">
-                                <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}" th:value="${question.question}" th:id="|question_${question.id}|" class="circle">
-                                <label th:for="|question_${question.id}|" th:text="${question.question}"> 질문 </label>
-                            </div>
-                        </section>
-
+        <div id="sheet" class="column justify-end" aria-hidden="true">
+            <div class="overlay"></div>
+            <div class="contents">
+                <header class="controls">
+                    <!-- The thing to drag if you want to resize the sheet -->
+                    <div class="draggable-area" style="">
+                        <div class="draggable-thumb"></div>
                     </div>
-
-                    <!-- If we need pagination -->
-                    <div class="swiper-pagination" id="swiper_survey_pagination"></div>
-
-                </div>
-
-                <footer>
-                    <button type="button" class="left"> 소식받기 </button>
-                    <button type="submit" class="right">응답 제출하기</button>
-                </footer>
-
-                <!--
-                <header>
-                    <button onclick="plusSlidesSurvey(-1)" type="button">
-
-                        <img src="images/icon/left.png"/>
-
-                    </button>
-                    <article>
-                        <div class="title_container" th:each=" survey : ${surveys}">
-                            <p th:text="${survey.title}" class="survey_title"> 제목 </p>
-                        </div>
-                    </article>
-                    <button onclick="plusSlidesSurvey(1)" type="button">
-                        <img src="images/icon/right.png"/>
-                    </button>
+                    <!-- Button to close the sheet -->
+                    <button class="close-sheet" type="button" title="Close the sheet">×</button>
                 </header>
-                <section class="survey_container" th:each=" survey : ${surveys}">
-                    <header>
-                        <p th:text="|${surveyStat.count}/${surveyStat.size}|"> 1/3 </p>
-                    </header>
-                    <div th:each=" question : ${survey.questions}" class="question">
-                        <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}" th:value="${question.question}" th:id="|question_${question.id}|" class="circle">
-                        <label th:for="|question_${question.id}|" th:text="${question.question}"> 질문 </label>
-                    </div>
-                </section>
 
-                -->
+                <main class="body">
 
-            </form>
+                    <form th:action="@{/users/survey}" method="post" th:object="${surveyResponseDto}">
 
+                        <!-- Slider main container -->
+                        <div class="swiper" id="swiper_survey">
+                            <!-- Additional required wrapper -->
+                            <img th:src="@{/images/icon/left.png}" class="swiper-button-prev" id="swiper_survey_prev"/>
+                            <img th:src="@{/images/icon/right.png}"  class="swiper-button-next" id="swiper_survey_next"/>
+                            <div class="swiper-wrapper">
+
+                                <section class="survey_container swiper-slide" th:each=" survey : ${surveys}">
+                                    <div th:text="${survey.title}" class="survey_title"> 제목 </div>
+                                    <div class="survey_questions">
+                                        <div class="question_container">
+                                            <div th:each=" question : ${survey.questions}" class="question">
+                                                <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}" th:value="${question.question}" th:id="|question_${question.id}|" class="circle">
+                                                <label th:for="|question_${question.id}|" th:text="${question.question}"> 질문 </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </div>
+
+                            <!-- If we need pagination -->
+                            <div class="swiper-pagination" id="swiper_survey_pagination"></div>
+
+                        </div>
+
+                        <footer>
+                            <button type="button" class="left"> 소식받기 </button>
+                            <button type="submit" class="right">응답 제출하기</button>
+                        </footer>
+                    </form>
+
+
+                </main>
+            </div>
         </div>
 
     </section>
@@ -183,6 +174,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script type="text/javascript" th:src="@{/js/user/user_page.js}"></script>
+    <script type="text/javascript" th:src="@{/js/user/bottom-sheet.js}"></script>
 
 </body>
 </html>

@@ -1,0 +1,185 @@
+:root {
+  --background: #fff;
+  --foreground: #000;
+  --divider: #dcdcdc;
+  --overlay: #888;
+}
+
+#sheet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  visibility: visible;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+#sheet[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#sheet .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: var(--overlay);
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  display: block;
+}
+
+#sheet .contents {
+  border-radius: 1rem 1rem 0 0;
+
+  background: var(--background);
+
+  position: relative;
+  overflow-y: hidden;
+
+  --default-transitions: transform 0.5s, border-radius 0.5s;
+
+  transition: var(--default-transitions);
+  transform: translateY(0);
+
+  max-height: 100vh;
+  height: 30vh;
+
+  max-width: 70rem;
+  width: 375px;
+  margin-left: auto;
+  margin-right: auto;
+
+  box-sizing: border-box;
+  padding: 3rem 1rem 1rem;
+}
+
+#sheet .contents:not(.not-selectable) {
+  transition: var(--default-transitions), height 0.5s;
+}
+
+#sheet .contents.fullscreen {
+  border-radius: 0;
+}
+
+#sheet[aria-hidden="true"] .contents {
+  transform: translateY(100%);
+}
+
+#sheet .draggable-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 3rem;
+  margin: auto;
+  padding: 1rem;
+  cursor: grab;
+}
+
+#sheet .draggable-thumb {
+  width: inherit;
+  height: 0.25rem;
+  background: var(--divider);
+  border-radius: 0.125rem;
+}
+
+#sheet .close-sheet {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+}
+
+#sheet .swiper-pagination {
+  position: absolute;
+  top: 20%;
+  height: fit-content;
+  width: fit-content;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+#sheet .swiper-button-next, #sheet .swiper-button-prev {
+  position: absolute;
+  top:10%;
+  width: 54px;
+  height: 54px;
+}
+
+#sheet .survey_title {
+  width: 60%;
+  text-align: center;
+  height: 30%;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+#sheet .survey_questions {
+  height: 70%;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+#sheet .question {
+  font-size: 20px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+#sheet form {
+  height: 100%;
+}
+
+#sheet form #swiper_survey {
+  height: 80%;
+}
+
+
+#sheet .body {
+  height: 100%;
+  overflow-y: auto;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#sheet footer {
+
+  height: 20%;
+  font-size: 20px;
+  display: flex;
+  justify-content: center; /* 가로 가운데 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+
+}
+
+#sheet footer button{
+
+  width: 165.5px;
+  height: 52px;
+  margin: 0 5px;
+  font-weight: bold;
+  border: 1px solid #5B46FF;
+  border-radius: 5px;
+
+}
+#sheet footer button.left{
+  background: white;
+  color: #5B46FF;
+}
+#sheet footer button.right{
+  background: #5B46FF;
+  color: #ffffff;
+}
