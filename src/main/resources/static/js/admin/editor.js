@@ -33,18 +33,20 @@ function toggleBold() {
 function save(){
     var html = editor.innerHTML;
 
-    $.ajax({
-        type: "POST",
-        url: "/admin/editor",
-        data: html,
-        contentType: "text/html",
-        success: function(response) {
-            console.log("서버 응답:", response);
+    fetch("/admin/editor", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/html"
         },
-        error: function(err) {
-            console.error("오류 발생:", err);
-        }
-    });
+        body: html
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log("서버 응답:", data);
+        })
+        .catch(error => {
+            console.error("오류 발생:", error);
+        });
 
 }
 
