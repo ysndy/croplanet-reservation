@@ -100,6 +100,8 @@ public class UserController {
         Reservation reservation = reservationService.addReservation(kakaoInfo);
         model.addAttribute("reservation", reservation);
 
+        //test
+
         return "user/reservation";
     }
 
