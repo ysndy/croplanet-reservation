@@ -33,7 +33,7 @@ public interface ActionRepository extends JpaRepository<Action, Long>{
             "FROM Action u " +
             "WHERE DATE_TRUNC('DAY', u.date) BETWEEN :startDate AND :endDate " +
             "GROUP BY DATE_TRUNC('DAY', u.date)", nativeQuery = true)
-    List<LocalDateTime> findDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
+    List<String> findDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
     @Query(value = "SELECT COUNT(*) from Action u where DATE_TRUNC('DAY', u.date) = :date and u.action = :action", nativeQuery = true)
     Long findByDateAndAction(@Param("date") String date, @Param("action") String action);
