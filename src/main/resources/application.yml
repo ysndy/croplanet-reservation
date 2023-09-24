@@ -25,4 +25,4 @@ kakao:
     url: http://localhost:8080/users/basket
 
 upload:
-  directory: C:/uploads/
+  directory: /uploads/
