@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Action extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long index;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

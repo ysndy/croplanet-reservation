@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -28,11 +29,11 @@ public interface ActionRepository extends JpaRepository<Action, Long>{
     List<String> findAllDates();
 
     //전체 날짜 불러오기
-    @Query(value = "SELECT DATE_TRUNC('DAY', u.date) AS truncated_date " +
+    @Query(value = "SELECT u.date AS truncated_date " +
             "FROM Action u " +
             "WHERE DATE_TRUNC('DAY', u.date) BETWEEN :startDate AND :endDate " +
             "GROUP BY DATE_TRUNC('DAY', u.date)", nativeQuery = true)
-    List<String> findDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
+    List<LocalDateTime> findDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
     @Query(value = "SELECT COUNT(*) from Action u where DATE_TRUNC('DAY', u.date) = :date and u.action = :action", nativeQuery = true)
     Long findByDateAndAction(@Param("date") String date, @Param("action") String action);
