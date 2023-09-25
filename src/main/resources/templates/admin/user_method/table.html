@@ -50,7 +50,7 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="action : ${userMethods.content}">
-                                            <td th:text="${action.index}"></td>
+                                            <td th:text="${action.id}"></td>
                                             <td th:text="${action.date}"></td>
                                             <td th:text="${action.action}"></td>
                                             <td th:text="${action.user.sessionId}"></td>
