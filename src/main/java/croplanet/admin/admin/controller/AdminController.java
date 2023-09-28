@@ -30,6 +30,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -101,7 +102,11 @@ public class AdminController {
             LocalDate start_date = LocalDate.parse(chartDto.getStart_date());
             LocalDate end_date = LocalDate.parse(chartDto.getEnd_date());
 
-            List<LocalDate> dates = actionRepository.findDateByDateBetween(start_date, end_date);
+            List<LocalDate> dates = actionRepository.findByDateBetween(start_date, end_date)
+                    .stream()
+                    .map(action -> action.getDate())
+                    .collect(Collectors.toList());
+
             for (int i = 0; i < dates.size(); i++) {
                 map.put(dates.get(i), new HashMap<>());
             }
