@@ -102,10 +102,7 @@ public class AdminController {
             LocalDate start_date = LocalDate.parse(chartDto.getStart_date());
             LocalDate end_date = LocalDate.parse(chartDto.getEnd_date());
 
-            List<LocalDate> dates = actionRepository.findByDateBetween(start_date, end_date)
-                    .stream()
-                    .map(action -> action.getDate())
-                    .collect(Collectors.toList());
+            List<LocalDate> dates = actionRepository.findDistinctDateByDateBetween(start_date, end_date);
 
             for (int i = 0; i < dates.size(); i++) {
                 map.put(dates.get(i), new HashMap<>());
@@ -117,7 +114,7 @@ public class AdminController {
             //날짜에 대한 행동의 카운트 뽑기
             for (int i = 0; i < dates.size(); i++) {
                 for (int j = 0; j < actions.size(); j++) {
-                    map.get(dates.get(i)).put(actions.get(j), actionRepository.findByDateAndAction(dates.get(i), actions.get(j)));
+                    map.get(dates.get(i)).put(actions.get(j), actionRepository.countByDateAndAction(dates.get(i), actions.get(j)));
                     log.info("date={}, action={}, count={}", dates.get(i), actions.get(j), map.get(dates.get(i)).get(actions.get(j)));
                 }
             }
