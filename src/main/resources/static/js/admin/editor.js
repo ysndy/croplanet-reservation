@@ -1,4 +1,5 @@
 const editor = document.getElementById("editor");
+const apiHost = 'http://3.34.210.95:8080'
 
 function alignText(align) {
     document.execCommand("justify" + align, false, null);
@@ -78,7 +79,7 @@ function insertImage() {
                     console.log("이미지 업로드 성공, 파일 경로:", fileUri);
 
                     const img = new Image();
-                    img.src = "http://localhost:8080/files/images/"+fileUri;
+                    img.src = apiHost+"/files/images/"+fileUri;
 
                     // 이미지 삽입
                     editor.focus();

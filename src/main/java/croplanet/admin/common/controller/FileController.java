@@ -53,6 +53,7 @@ public class FileController {
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource readImage(@PathVariable String filename) throws MalformedURLException {
+        log.info("file: {}", fileManager.getFullPath(filename));
         return new UrlResource("file:"+fileManager.getFullPath(filename));
     }
 

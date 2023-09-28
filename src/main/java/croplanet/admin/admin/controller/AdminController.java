@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -93,10 +94,14 @@ public class AdminController {
         }else {
 
             //해쉬 맵 생성 구조: key:날짜, value:해쉬 맵 (key:행동, value:카운트)
-            Map<String, Map<String, Long>> map = new HashMap<>();
+            Map<LocalDate, Map<String, Long>> map = new HashMap<>();
 
             //시작 날짜 부터 종료 날짜 까지 리스트 뽑기
-            List<String> dates = actionRepository.findDates(chartDto.getStart_date(), chartDto.getEnd_date());
+
+            LocalDate start_date = LocalDate.parse(chartDto.getStart_date());
+            LocalDate end_date = LocalDate.parse(chartDto.getEnd_date());
+
+            List<LocalDate> dates = actionRepository.findDateByDateBetween(start_date, end_date);
             for (int i = 0; i < dates.size(); i++) {
                 map.put(dates.get(i), new HashMap<>());
             }
