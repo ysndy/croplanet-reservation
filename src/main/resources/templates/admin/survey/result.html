@@ -10,11 +10,25 @@
 
     <div th:each="survey : ${surveys}">
 
-        <p th:text="${survey.title}"> 제목 </p>
-        <canvas th:id="${survey.id}" th:if="${!survey.type.description.toString().equals('text')}"></canvas>
-        <div th:if="${survey.type.description.toString().equals('text')}" th:each="surveyResponse : ${surveyResponses}">
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
 
-            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="${surveyResponse.answer}"> 설문 응답 </p>
+                        <p th:text="${survey.title}"> 제목 </p>
+                        <canvas th:id="${survey.id}" th:if="${!survey.type.description.toString().equals('text')}"></canvas>
+                        <div th:if="${survey.type.description.toString().equals('text')}" th:each="surveyResponse : ${surveyResponses}">
+
+                            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="${surveyResponse.answer}"> 설문 응답 </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
 

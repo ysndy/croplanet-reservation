@@ -39,3 +39,7 @@ li a:hover {
 #editor img {
     width: 300px;
 }
+
+canvas {
+    width: 500px;
+}
