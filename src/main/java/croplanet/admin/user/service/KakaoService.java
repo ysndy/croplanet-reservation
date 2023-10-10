@@ -99,7 +99,7 @@ public class KakaoService {
         JSONObject account = (JSONObject) jsonObj.get("kakao_account");
         JSONObject profile = (JSONObject) account.get("profile");
 
-        log.debug("jsonObj = {}", jsonObj);
+        log.info("jsonObj = {}", jsonObj);
 
         long id = (long) jsonObj.get("id");
         String email = String.valueOf(account.get("email"));
