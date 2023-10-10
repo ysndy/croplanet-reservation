@@ -24,19 +24,24 @@ public class UserInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false);
 
+        User user;
+
         if(session==null){
 
             session = request.getSession(true);
             session.setMaxInactiveInterval(-1);
-            User user = new User();
+            user = new User();
             user.setSessionId(session.getId());
             userRepository.save(user);
 
-            session.setAttribute(Constant.SESSION_USER, user);
 
             log.info("user 신규 생성 = {}", session.getAttribute(Constant.SESSION_USER));
 
+        }else {
+            user = userRepository.findBySessionId(session.getId());
         }
+
+        session.setAttribute(Constant.SESSION_USER, user);
 
         return true;
     }
