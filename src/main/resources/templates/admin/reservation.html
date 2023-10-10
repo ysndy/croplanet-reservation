@@ -5,33 +5,63 @@
     <title>사전 예약 현황</title>
 </head>
 <body>
-    <div class="page-wrapper">
-        <table>
-            <thead>
-            <tr>
-                <th> 날짜 </th>
-                <th> 순번 </th>
-                <th> 카카오 아이디 </th>
-                <th> 이름 </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="reservation : ${reservations.content}">
-                <td th:text="${reservation.date}"></td>
-                <td th:text="${reservation.id}"></td>
-                <td th:text="${reservation.kakaoId}"></td>
-                <td th:text="${reservation.name}"></td>
-            </tr>
 
-            </tbody>
-        </table>
-        <div th:if="${reservations.totalPages > 1}">
-            <ul class="pagination">
-                <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
-                    <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
-                </li>
-            </ul>
+
+    <div class="page-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <div class="table-responsive">
+                            <table  class="table text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0"> 날짜 </th>
+                                    <th class="border-top-0"> 순번 </th>
+                                    <th class="border-top-0"> 카카오 아이디 </th>
+                                    <th class="border-top-0"> 이름 </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="reservation : ${reservations.content}">
+                                    <td th:text="${reservation.date}"></td>
+                                    <td th:text="${reservation.id}"></td>
+                                    <td th:text="${reservation.kakaoId}"></td>
+                                    <td th:text="${reservation.name}"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <div th:if="${reservations.totalPages > 1}">
+                                <ul class="pagination">
+                                    <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
+                                        <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
         </div>
     </div>
+
 </body>
 </html>

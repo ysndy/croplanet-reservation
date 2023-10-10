@@ -104,11 +104,24 @@ public class KakaoService {
         long id = (long) jsonObj.get("id");
         String email = String.valueOf(account.get("email"));
         String nickname = String.valueOf(profile.get("nickname"));
+        String profile_image = String.valueOf(profile.get("profile_image_url"));
+        String name = String.valueOf(account.get("name"));
+        String gender = String.valueOf(account.get("gender"));
+        String age_range = String.valueOf(account.get("age_range"));
+        String birthday = String.valueOf(account.get("birthday"));
+        String phone_number = String.valueOf(account.get("phone_number"));
 
         return KakaoDTO.builder()
                 .id(id)
-                .email(email)
-                .nickname(nickname).build();
+                .account_email(email)
+                .profile_nickname(nickname)
+                .profile_image(profile_image)
+                .name(name)
+                .gender(gender)
+                .age_range(age_range)
+                .birthday(birthday)
+                .phone_number(phone_number)
+                .build();
     }
 
 }

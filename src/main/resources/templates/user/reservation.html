@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <h2 th:text="|${kakaoInfo.nickname} 님! 사전 등록해주셔서 감사해요!|"> 사전 등록해주셔서 감사해요! </h2>
+    <h2 th:text="|${kakaoInfo.profile_nickname} 님! 사전 등록해주셔서 감사해요!|"> 사전 등록해주셔서 감사해요! </h2>
     <p th:text="|순위 : ${reservation.id}|"> 순위 </p>
     <button onclick="addChannel()">채널 추가</button>
     <a th:href="@{/users}"> 메인으로 </a>

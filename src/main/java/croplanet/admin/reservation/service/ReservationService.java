@@ -25,7 +25,7 @@ public class ReservationService {
         }else {
             reservation = new Reservation();
             reservation.setKakaoId(kakaoDTO.getId());
-            reservation.setName(kakaoDTO.getNickname());
+            reservation.setName(kakaoDTO.getProfile_nickname());
             reservationRepository.save(reservation);
         }
 
