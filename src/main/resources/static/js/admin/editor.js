@@ -1,5 +1,5 @@
 const editor = document.getElementById("editor");
-const apiHost = 'http://3.34.210.95:8080'
+const apiHost = 'http://ec2-13-125-206-139.ap-northeast-2.compute.amazonaws.com:8080'
 
 function alignText(align) {
     document.execCommand("justify" + align, false, null);
