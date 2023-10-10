@@ -32,6 +32,7 @@ public class ReservationService {
             reservation.setPhone_number(kakaoDTO.getPhone_number());
             reservation.setProfile_image(kakaoDTO.getProfile_image());
             reservation.setProfile_nickname(kakaoDTO.getProfile_nickname());
+            reservation.setAccount_email(kakaoDTO.getAccount_email());
             reservationRepository.save(reservation);
         }
 
