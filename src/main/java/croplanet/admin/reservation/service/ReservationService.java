@@ -26,6 +26,12 @@ public class ReservationService {
             reservation = new Reservation();
             reservation.setKakaoId(kakaoDTO.getId());
             reservation.setName(kakaoDTO.getProfile_nickname());
+            reservation.setAge_range(kakaoDTO.getAge_range());
+            reservation.setBirthday(kakaoDTO.getBirthday());
+            reservation.setGender(kakaoDTO.getGender());
+            reservation.setPhone_number(kakaoDTO.getPhone_number());
+            reservation.setProfile_image(kakaoDTO.getProfile_image());
+            reservation.setProfile_nickname(kakaoDTO.getProfile_nickname());
             reservationRepository.save(reservation);
         }
 
