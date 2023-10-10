@@ -104,7 +104,7 @@ public class KakaoService {
         long id = (long) jsonObj.get("id");
         String email = String.valueOf(account.get("email"));
         String nickname = String.valueOf(profile.get("nickname"));
-        String profile_image = String.valueOf(profile.get("profile_image_url"));
+        String profile_image = String.valueOf(profile.get("thumbnail_image_url"));
         String name = String.valueOf(account.get("name"));
         String gender = String.valueOf(account.get("gender"));
         String age_range = String.valueOf(account.get("age_range"));
