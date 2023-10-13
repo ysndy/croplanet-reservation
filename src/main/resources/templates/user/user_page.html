@@ -27,7 +27,7 @@
 
             <form th:action="@{/users/login}" method="get">
                 <button>
-                    <img th:src="@{images/icon/basket.png}"/>
+                    <img th:src="@{images/icon/gift_black.svg}"/>
                 </button>
             </form>
         </nav>
@@ -73,7 +73,7 @@
                 <!-- 공유하기 -->
                 <div class="middle_buttons">
                     <button onclick="like_top()">
-                        <img th:src="@{images/icon/like.png}"/>
+                        <img th:src="@{images/icon/gift_lightgray.svg}"/>
                         <p>120</p>
                     </button>
                     <button th:onclick="share([[${query}]])">
@@ -110,7 +110,7 @@
 
             <!-- 구매하기 -->
             <button onclick="like_bottom()" class="like">
-                <img th:src="@{/images/icon/like.png}"/>
+                <img th:src="@{/images/icon/gift_lightgray_big.svg}"/>
             </button>
             <button class="gift" id="open-sheet" aria-controls="sheet">선물받기</button>
 
