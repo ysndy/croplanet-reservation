@@ -24,7 +24,7 @@ nav form button {
     /* 오른쪽 정렬 스타일 추가 */
     background: white;
     border: none;
-
+    cursor: pointer;
 }
 
 nav form button img{
@@ -102,6 +102,16 @@ nav form button img{
     justify-content: center; /* 가로 정렬 중앙 정렬 */
     align-items: center; /* 세로 정렬 중앙 정렬 */
 
+    cursor: pointer; /* 커서 스타일 설정 */
+    transition: background-color 0.3s; /* 호버 효과 애니메이션 */
+}
+
+.middle_buttons button:hover {
+    background: #eeeeee;
+}
+
+.middle_buttons button:active {
+    background: lightgray;
 }
 
 .middle_buttons button img {
@@ -169,6 +179,17 @@ nav form button img{
     border-radius: 5px;
     align-items: center;
     border: none;
+
+    cursor: pointer; /* 커서 스타일 설정 */
+    transition: background-color 0.3s; /* 호버 효과 애니메이션 */
+}
+
+.bottom .gift:hover {
+    background: rgb(71, 54, 206);
+}
+
+.bottom .gift:active {
+    background: rgb(58, 46, 159);
 }
 
 .bottom .like {
@@ -176,6 +197,7 @@ nav form button img{
     height: 52px;
     background: white;
     border: none;
+    cursor: pointer;
 }
 
 .bottom .like img {

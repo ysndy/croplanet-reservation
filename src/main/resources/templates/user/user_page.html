@@ -72,10 +72,11 @@
 
                 <!-- 공유하기 -->
                 <div class="middle_buttons">
-                    <button onclick="like_top()">
-                        <img th:src="@{images/icon/gift_lightgray.svg}"/>
-                        <p>120</p>
-                    </button>
+                    <form th:action="@{/users/login}" method="get">
+                        <button onclick="like_top()">
+                            <img th:src="@{images/icon/gift_lightgray.svg}"/>
+                        </button>
+                    </form>
                     <button th:onclick="share([[${query}]])">
                         <img th:src="@{images/icon/share.png}"/>
                         <p>공유하기</p>
@@ -109,9 +110,11 @@
         <footer class="bottom">
 
             <!-- 구매하기 -->
-            <button onclick="like_bottom()" class="like">
-                <img th:src="@{/images/icon/gift_lightgray_big.svg}"/>
-            </button>
+            <form th:action="@{/users/login}" method="get">
+                <button onclick="like_bottom()" class="like">
+                    <img th:src="@{/images/icon/gift_lightgray_big.svg}"/>
+                </button>
+            </form>
             <button class="gift" id="open-sheet" aria-controls="sheet">선물받기</button>
 
         </footer>
@@ -160,7 +163,10 @@
                         </div>
 
                         <footer>
-                            <button type="button" class="left"> 소식받기 </button>
+
+                            <form th:action="@{/users/login}" method="get">
+                                <button type="button" class="left"> 소식받기 </button>
+                            </form>
                             <button type="submit" class="right">응답 제출하기</button>
                         </footer>
                     </form>

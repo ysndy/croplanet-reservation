@@ -173,6 +173,8 @@
   font-weight: bold;
   border: 1px solid #5B46FF;
   border-radius: 5px;
+  cursor: pointer; /* 커서 스타일 설정 */
+  transition: background-color 0.3s; /* 호버 효과 애니메이션 */
 
 }
 #sheet footer button.left{
@@ -182,4 +184,18 @@
 #sheet footer button.right{
   background: #5B46FF;
   color: #ffffff;
+}
+
+#sheet footer button.right:hover{
+  background: rgb(71, 54, 206);
+}
+#sheet footer button.right:active{
+  background: rgb(58, 46, 159);
+}
+
+#sheet footer button.left:hover{
+  background: #eeeeee;
+}
+#sheet footer button.left:active{
+  background: lightgray;
 }
