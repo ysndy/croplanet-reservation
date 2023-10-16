@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/user/reservation.css}" rel="stylesheet"/>
 </head>
 <body>
 
-    <h2 th:text="|${kakaoInfo.profile_nickname} 님! 사전 등록해주셔서 감사해요!|"> 사전 등록해주셔서 감사해요! </h2>
-    <p th:text="|순위 : ${reservation.id}|"> 순위 </p>
-    <button onclick="addChannel()">채널 추가</button>
-    <a th:href="@{/users}"> 메인으로 </a>
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script type="text/javascript" th:src="@{/js/user/reservation.js}"></script>
+        <h2> 사전 등록해주셔서
+            감사해요! </h2>
+        <p class="details"> 서비스가 오픈되면,
+            카카오톡으로 알려드릴게요. </p>
+        <img src="/images/reservation_cat.svg"/>
+        <p class="rank" th:text="|현재 ${reservation.id}등이에요.
+        꼭 선물받으러오세요!|"></p>
+        <button onclick="addChannel()">채널 추가</button>
+        <a class="button" th:href="@{/users}"> ✨ 서비스 구경하러 가기 ✨ </a>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script type="text/javascript" th:src="@{/js/user/reservation.js}"></script>
 
 </body>
 </html>
