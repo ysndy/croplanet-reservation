@@ -7,8 +7,8 @@ import java.time.LocalDate;
 @Data
 public class ReservationSearchCond {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private String name;
     private String phoneNumber;
     private String email;

@@ -13,6 +13,7 @@ import croplanet.admin.user.service.KakaoService;
 import croplanet.admin.action.service.ActionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import java.util.Map;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @Slf4j
+@Profile("local")
 public class UserController {
 
     private final KakaoService kakaoService;

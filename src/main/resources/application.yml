@@ -16,6 +16,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
+  profiles:
+    active: local
+
 kakao:
   client:
     id: d5b54589b2a05333f8907ff397d9960a

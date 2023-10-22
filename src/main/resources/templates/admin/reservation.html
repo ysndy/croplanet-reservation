@@ -9,26 +9,33 @@
 
     <div class="page-wrapper">
 
-        <form th:action method="get" th:object="${reservationSearchCond}">
+        <div class="page-breadcrumb bg-white">
+            <div class="row align-items-center">
 
-            <label for="start_date"></label>
-            <input id="start_date" type="date" th:field="*{startDate}"/>
+                <form th:action method="get" th:object="${reservationSearchCond}">
 
-            <label for="end_date"></label>
-            <input id="end_date" type="date" th:field="*{endDate}"/>
+                    <label for="start_date"></label>
+                    <input id="start_date" type="date" th:field="*{startDate}"/>
 
-            <label for="name"> 이름 </label>
-            <input id="name" type="text" th:field="*{name}"/>
+                    <label for="end_date"></label>
+                    <input id="end_date" type="date" th:field="*{endDate}"/>
 
-            <label for="phone_number">휴대폰 번호</label>
-            <input id="phone_number" type="tel" th:field="*{phoneNumber}"/>
+                    <label for="name"> 이름 </label>
+                    <input id="name" type="text" th:field="*{name}"/>
 
-            <label for="email">이메일</label>
-            <input id="email" type="email" th:field="*{email}"/>
+                    <label for="phone_number">휴대폰 번호</label>
+                    <input id="phone_number" type="tel" th:field="*{phoneNumber}"/>
 
-            <button type="submit"> 검색 </button>
+                    <label for="email">이메일</label>
+                    <input id="email" type="email" th:field="*{email}"/>
 
-        </form>
+                    <button type="submit"> 검색 </button>
+
+                </form>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
 
         <!-- ============================================================== -->
         <!-- Container fluid  -->

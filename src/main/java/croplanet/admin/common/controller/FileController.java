@@ -3,6 +3,7 @@ package croplanet.admin.common.controller;
 import croplanet.admin.common.util.FileManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @RequestMapping("/files")
 @RequiredArgsConstructor
 @Slf4j
+@Profile("local")
 public class FileController {
 
     private final FileManager fileManager;

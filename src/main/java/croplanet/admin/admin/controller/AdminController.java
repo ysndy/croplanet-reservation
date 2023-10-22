@@ -2,6 +2,7 @@ package croplanet.admin.admin.controller;
 
 import croplanet.admin.reservation.domain.Reservation;
 import croplanet.admin.action.domain.Action;
+import croplanet.admin.reservation.repository.ReservationQueryRepository;
 import croplanet.admin.reservation.repository.ReservationSearchCond;
 import croplanet.admin.survey.domain.Survey;
 import croplanet.admin.survey.domain.SurveyResponse;
@@ -14,6 +15,7 @@ import croplanet.admin.common.util.FileManager;
 import croplanet.admin.action.service.ActionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -37,11 +39,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @Slf4j
+@Profile("local")
 public class AdminController {
 
     private final ActionService actionService;
     private final ActionRepository actionRepository;
     private final ReservationRepository reservationRepository;
+    private final ReservationQueryRepository reservationQueryRepository;
     private final SurveyRepository surveyRepository;
     private final SurveyResponseRepository surveyResponseRepository;
     private final FileManager fileManager;
@@ -81,7 +85,8 @@ public class AdminController {
 
         log.info("param = {}", reservationSearchCond);
 
-        Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(page, 30));
+        //Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(page, 30));
+        Page<Reservation> reservations = reservationQueryRepository.findAll(page, 30, reservationSearchCond);
         model.addAttribute("reservations", reservations);
 
         return "admin/reservation";

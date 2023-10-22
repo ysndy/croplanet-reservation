@@ -8,6 +8,7 @@ import croplanet.admin.survey.repository.QuestionRepository;
 import croplanet.admin.survey.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@Profile("local")
 public class TestDataInit {
 
     private final SurveyRepository surveyRepository;
