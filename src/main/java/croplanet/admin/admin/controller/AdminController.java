@@ -2,6 +2,7 @@ package croplanet.admin.admin.controller;
 
 import croplanet.admin.reservation.domain.Reservation;
 import croplanet.admin.action.domain.Action;
+import croplanet.admin.reservation.repository.ReservationSearchCond;
 import croplanet.admin.survey.domain.Survey;
 import croplanet.admin.survey.domain.SurveyResponse;
 import croplanet.admin.reservation.repository.ReservationRepository;
@@ -72,7 +73,13 @@ public class AdminController {
     }
 
     @GetMapping("/reservation")
-    public String reservation(@RequestParam(defaultValue = "0") int page, Model model){
+    public String reservation(
+            @RequestParam(defaultValue = "0") int page,
+            ReservationSearchCond reservationSearchCond,
+            Model model
+    ){
+
+        log.info("param = {}", reservationSearchCond);
 
         Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(page, 30));
         model.addAttribute("reservations", reservations);
