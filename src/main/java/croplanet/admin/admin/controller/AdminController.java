@@ -7,6 +7,8 @@ import croplanet.admin.reservation.repository.ReservationSearchCond;
 import croplanet.admin.survey.domain.Survey;
 import croplanet.admin.survey.domain.SurveyResponse;
 import croplanet.admin.reservation.repository.ReservationRepository;
+import croplanet.admin.survey.domain.enums.SurveyType;
+import croplanet.admin.survey.dto.SurveyDto;
 import croplanet.admin.survey.repository.SurveyRepository;
 import croplanet.admin.action.repository.ActionRepository;
 import croplanet.admin.survey.repository.SurveyResponseRepository;
@@ -33,7 +35,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -138,6 +139,28 @@ public class AdminController {
 
 
         return "admin/user_method/chart";
+    }
+
+    @GetMapping("/surveys/edit")
+    public String surveyEditView(Model model){
+
+        //기존 등록 설문 조회를 위한 데이터
+        List<Survey> surveys = surveyRepository.findAll();
+
+        model.addAttribute("surveyTypes", SurveyType.values());
+        model.addAttribute("surveyDto", new SurveyDto());
+
+        return "admin/survey/edit";
+    }
+
+    @PostMapping("/surveys/edit")
+    public String surveyEdit(SurveyDto surveyDto){
+        log.info("surveyDto = {}", surveyDto);
+
+        //Survey 정보를 받고 Question을 여러개 받아서 DB에 저장.
+
+
+        return "admin/survey/edit";
     }
 
     @GetMapping("/surveys/result")
