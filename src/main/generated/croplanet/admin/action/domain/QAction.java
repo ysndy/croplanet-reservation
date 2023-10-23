@@ -56,7 +56,7 @@ public class QAction extends EntityPathBase<Action> {
 
     public QAction(Class<? extends Action> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.user = inits.isInitialized("user") ? new croplanet.admin.user.domain.QUser(forProperty("user")) : null;
+        this.user = inits.isInitialized("user") ? new croplanet.admin.user.domain.QUser(forProperty("user"), inits.get("user")) : null;
     }
 
 }

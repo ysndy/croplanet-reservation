@@ -1,6 +1,7 @@
 package croplanet.admin.user.domain;
 
 import croplanet.admin.action.domain.Action;
+import croplanet.admin.reservation.domain.Reservation;
 import croplanet.admin.survey.domain.SurveyResponse;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +17,9 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String kakaoId;
-
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 
     private String sessionId;
 

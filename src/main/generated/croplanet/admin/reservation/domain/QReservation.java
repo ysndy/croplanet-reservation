@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -48,6 +49,8 @@ public class QReservation extends EntityPathBase<Reservation> {
     public final StringPath profile_nickname = createString("profile_nickname");
 
     public final StringPath shipping_address = createString("shipping_address");
+
+    public final ListPath<croplanet.admin.user.domain.User, croplanet.admin.user.domain.QUser> users = this.<croplanet.admin.user.domain.User, croplanet.admin.user.domain.QUser>createList("users", croplanet.admin.user.domain.User.class, croplanet.admin.user.domain.QUser.class, PathInits.DIRECT2);
 
     public QReservation(String variable) {
         super(Reservation.class, forVariable(variable));

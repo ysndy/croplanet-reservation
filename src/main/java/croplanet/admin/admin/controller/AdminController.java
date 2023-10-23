@@ -52,8 +52,8 @@ public class AdminController {
 
     @GetMapping("/table")
     public String table(@RequestParam(defaultValue = "0") int page, Model model){
-        Page<Action> userMethods = actionRepository.findAll(PageRequest.of(page, 30));
-        model.addAttribute("userMethods", userMethods);
+        Page<Action> actions = actionRepository.findAll(PageRequest.of(page, 30));
+        model.addAttribute("userMethods", actions);
         return "admin/user_method/table";
     }
 

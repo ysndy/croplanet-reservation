@@ -49,7 +49,7 @@ public class QSurveyResponse extends EntityPathBase<SurveyResponse> {
     public QSurveyResponse(Class<? extends SurveyResponse> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.survey = inits.isInitialized("survey") ? new QSurvey(forProperty("survey")) : null;
-        this.user = inits.isInitialized("user") ? new croplanet.admin.user.domain.QUser(forProperty("user")) : null;
+        this.user = inits.isInitialized("user") ? new croplanet.admin.user.domain.QUser(forProperty("user"), inits.get("user")) : null;
     }
 
 }
