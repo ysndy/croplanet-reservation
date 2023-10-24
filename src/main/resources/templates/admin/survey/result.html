@@ -22,7 +22,7 @@
                         <canvas th:id="${survey.id}" th:if="${!survey.type.description.toString().equals('text')}"></canvas>
                         <div th:if="${survey.type.description.toString().equals('text')}" th:each="surveyResponse : ${surveyResponses}">
 
-                            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="${surveyResponse.answer}"> 설문 응답 </p>
+                            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="|${surveyResponseStat.count}. ${surveyResponse.answer}|"> 설문 응답 </p>
 
                         </div>
 
