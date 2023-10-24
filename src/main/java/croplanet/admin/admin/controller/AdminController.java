@@ -15,6 +15,7 @@ import croplanet.admin.survey.repository.SurveyResponseRepository;
 import croplanet.admin.admin.dto.ChartDto;
 import croplanet.admin.common.util.FileManager;
 import croplanet.admin.action.service.ActionService;
+import croplanet.admin.survey.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -49,6 +50,7 @@ public class AdminController {
     private final ReservationQueryRepository reservationQueryRepository;
     private final SurveyRepository surveyRepository;
     private final SurveyResponseRepository surveyResponseRepository;
+    private final SurveyService surveyService;
     private final FileManager fileManager;
 
     @GetMapping("/table")
@@ -147,6 +149,7 @@ public class AdminController {
         //기존 등록 설문 조회를 위한 데이터
         List<Survey> surveys = surveyRepository.findAll();
 
+        model.addAttribute("surveys", surveys);
         model.addAttribute("surveyTypes", SurveyType.values());
         model.addAttribute("surveyDto", new SurveyDto());
 
@@ -158,9 +161,17 @@ public class AdminController {
         log.info("surveyDto = {}", surveyDto);
 
         //Survey 정보를 받고 Question을 여러개 받아서 DB에 저장.
+        surveyService.addSurvey(surveyDto);
 
+        return "redirect:/admin/surveys/edit";
+    }
 
-        return "admin/survey/edit";
+    @PostMapping("/surveys/delete")
+    public String surveyDelete(Long id) {
+
+        surveyRepository.deleteById(id);
+
+        return "redirect:/admin/surveys/edit";
     }
 
     @GetMapping("/surveys/result")

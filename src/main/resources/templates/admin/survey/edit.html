@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::section})}"
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::div})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>설문 조사 추가</title>
 </head>
 <body>
 
-<section>
+<div class="page-wrapper">
+
+    <h1>설문 목록</h1>
+
+    <div th:each="survey : ${surveys}">
+
+        <h3 th:text="|${surveyStat.count}. ${survey.title}|"></h3>
+        <form th:action="@{/admin/surveys/delete}" method="post">
+            <input type="hidden" name="id" th:value="${survey.id}">
+            <button type="submit"> X </button>
+        </form>
+        <p th:text="|type: ${survey.type.description}|"></p>
+        <div th:if="${!#strings.equals(survey.type.description,'text')}" th:each="question : ${survey.questions}">
+            <span th:text="|${questionStat.count}. ${question.question}|">질문</span>
+        </div>
+
+    </div>
+
+    <hr>
 
     <h1>설문 추가</h1>
 
@@ -36,11 +54,6 @@
         <button type="submit">설문 등록</button>
     </form>
 
-    <script th:inline="javascript">
-        /* Thymeleaf에서 데이터를 JavaScript로 가져옵니다. */
-        var formData = [[${SurveyDto}]];
-    </script>
-
     <script>
         var index = 1; // 다음 입력 필드 인덱스
 
@@ -56,7 +69,7 @@
     </script>
 
 
-</section>
+</div>
 
 </body>
 </html>
