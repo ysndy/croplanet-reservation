@@ -21,11 +21,11 @@ spring:
 
 kakao:
   client:
-    id: d5b54589b2a05333f8907ff397d9960a
-    secret: 7JrTbeqmwbUbM9MjWmt8tRgCI4DQIRsy
+    id: 490c03e919869544279449cbbf4ef062
+    secret: rm2e08iUqNrYMh222qWbfhpDBxcVX39a
 
   redirect:
-    url: http://localhost:8080/users/basket
+    url: http://3.34.210.95:8080/users/basket
 
 upload:
   directory: /uploads/
