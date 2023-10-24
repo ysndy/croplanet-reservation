@@ -29,7 +29,7 @@ public class ReservationService {
         }else {
             reservation = new Reservation();
             reservation.setKakaoId(kakaoDTO.getId());
-            reservation.setName(kakaoDTO.getProfile_nickname());
+            reservation.setName(kakaoDTO.getName());
             reservation.setAge_range(kakaoDTO.getAge_range());
             reservation.setBirthday(kakaoDTO.getBirthday());
             reservation.setGender(kakaoDTO.getGender());

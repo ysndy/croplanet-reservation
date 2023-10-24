@@ -38,9 +38,9 @@
                                         <tr th:each="action : ${userMethods.content}">
                                             <td th:text="${action.id}"></td>
                                             <td th:text="${action.date}"></td>
+                                            <td th:text="${action.action}"></td>
                                             <td th:if="${action.user.reservation != null}" th:text="${action.user.reservation.account_email}"></td>
-                                            <td th:unless="${action.user.reservation != null}" th:text="${action.action}"></td>
-                                            <td th:text="${action.user.sessionId}"></td>
+                                            <td th:unless="${action.user.reservation != null}" th:text="${action.user.sessionId}"></td>
                                             <td th:text="${action.query}"></td>
                                         </tr>
                                     </tbody>
