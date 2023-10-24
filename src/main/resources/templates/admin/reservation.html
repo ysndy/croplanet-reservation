@@ -54,10 +54,10 @@
                                     <th class="border-top-0"> 프로필 사진 </th>
                                     <th class="border-top-0"> 날짜 </th>
                                     <th class="border-top-0"> 순번 </th>
-                                    <th class="border-top-0"> 카카오 아이디 </th>
                                     <th class="border-top-0"> 이름 </th>
                                     <th class="border-top-0"> 성별 </th>
                                     <th class="border-top-0"> 생일 </th>
+                                    <th class="border-top-0"> 전화번호 </th>
                                     <th class="border-top-0"> 이메일 </th>
                                 </tr>
                                 </thead>
@@ -66,10 +66,10 @@
                                     <td><img th:src="${reservation.profile_image}"></td>
                                     <td th:text="${reservation.date}"></td>
                                     <td th:text="${reservation.id}"></td>
-                                    <td th:text="${reservation.kakaoId}"></td>
                                     <td th:text="${reservation.name}"></td>
                                     <td th:text="${reservation.gender}"></td>
                                     <td th:text="${reservation.birthday}"></td>
+                                    <td th:text="${reservation.phone_number}"></td>
                                     <td th:text="${reservation.account_email}"></td>
                                 </tr>
 

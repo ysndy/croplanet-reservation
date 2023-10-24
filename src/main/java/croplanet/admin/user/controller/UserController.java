@@ -1,5 +1,6 @@
 package croplanet.admin.user.controller;
 
+import croplanet.admin.common.util.Constant;
 import croplanet.admin.reservation.domain.Reservation;
 import croplanet.admin.reservation.service.ReservationService;
 import croplanet.admin.survey.domain.Survey;
@@ -8,7 +9,9 @@ import croplanet.admin.survey.repository.SurveyRepository;
 import croplanet.admin.survey.repository.SurveyResponseRepository;
 import croplanet.admin.survey.dto.SurveyResponseDto;
 import croplanet.admin.common.util.FileManager;
+import croplanet.admin.user.domain.User;
 import croplanet.admin.user.dto.KakaoDTO;
+import croplanet.admin.user.dto.UserDto;
 import croplanet.admin.user.service.KakaoService;
 import croplanet.admin.action.service.ActionService;
 import lombok.RequiredArgsConstructor;
@@ -99,7 +102,10 @@ public class UserController {
         log.debug("kakaoInfo={}", kakaoInfo);
 
         //사전예약 순위 추가
-        Reservation reservation = reservationService.addReservation(kakaoInfo);
+        User user = (User) request.getSession().getAttribute(Constant.SESSION_USER);
+        UserDto userDto = new UserDto();
+        userDto.setUserId(user.getId());
+        Reservation reservation = reservationService.addReservation(kakaoInfo, userDto);
         model.addAttribute("reservation", reservation);
 
         //test

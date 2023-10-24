@@ -2,7 +2,10 @@ package croplanet.admin.reservation.service;
 
 import croplanet.admin.reservation.domain.Reservation;
 import croplanet.admin.reservation.repository.ReservationRepository;
+import croplanet.admin.user.domain.User;
 import croplanet.admin.user.dto.KakaoDTO;
+import croplanet.admin.user.dto.UserDto;
+import croplanet.admin.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +18,9 @@ import java.util.Optional;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
-    public Reservation addReservation(KakaoDTO kakaoDTO){
+    public Reservation addReservation(KakaoDTO kakaoDTO, UserDto userDto){
 
         Reservation reservation;
         Optional optional = reservationRepository.findByKakaoId(kakaoDTO.getId());
@@ -34,6 +38,10 @@ public class ReservationService {
             reservation.setProfile_nickname(kakaoDTO.getProfile_nickname());
             reservation.setAccount_email(kakaoDTO.getAccount_email());
             reservationRepository.save(reservation);
+
+            User user = userRepository.findById(userDto.getUserId()).orElseThrow();
+            user.setReservation(reservation);
+
         }
 
         return reservation;
