@@ -97,7 +97,7 @@ public class AdminController {
     }
 
     @GetMapping("/chart")
-    public String chart(HttpServletRequest request, ChartDto chartDto, Model model){
+    public String chart(ChartDto chartDto, Model model){
         log.info("chartDto = {}", chartDto);
 
         if (chartDto.getStart_date() == null || chartDto.getStart_date().isEmpty()) {
@@ -138,7 +138,6 @@ public class AdminController {
             model.addAttribute("dates", dates);
             model.addAttribute("actions", actions);
         }
-
 
         return "admin/user_method/chart";
     }

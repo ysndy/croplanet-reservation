@@ -43,11 +43,11 @@ public class ReservationQueryRepository {
         Pageable pageable = PageRequest.of(page, limit);
 
         // QueryResults를 사용하여 전체 결과와 페이지 정보를 가져옴
-        QueryResults<Reservation> results = jpaQuery.limit(limit)
+        List<Reservation> results = jpaQuery.limit(limit)
                 .offset(limit * page)
-                .fetchResults();
+                .fetch();
 
-        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+        return new PageImpl<>(results, pageable, results.size());
     }
     private BooleanExpression likeCondition(StringPath field, String value) {
         if(StringUtils.hasText(value)){

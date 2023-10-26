@@ -19,7 +19,10 @@ public interface ActionRepository extends JpaRepository<Action, Long>{
     List<LocalDate> findDistinctDate();
 
     @Query("select distinct a.date from Action a where a.date between :startDate and :endDate")
-    List<LocalDate> findDistinctDateByDateBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<LocalDate> findDistinctDateByDateBetween(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
+    );
 
     Long countByDateAndAction(LocalDate date, String action);
 

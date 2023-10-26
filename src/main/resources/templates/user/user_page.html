@@ -148,7 +148,8 @@
                                     <div class="survey_questions">
                                         <div class="question_container">
                                             <div th:each=" question : ${survey.questions}" class="question">
-                                                <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}" th:value="${question.question}" th:id="|question_${question.id}|" class="circle">
+                                                <input th:type="${survey.type.description}" th:field="*{responses[__${survey.id}__]}"
+                                                       th:value="${question.question}" th:id="|question_${question.id}|" class="circle">
                                                 <label th:for="|question_${question.id}|" th:text="${question.question}"> 질문 </label>
                                             </div>
                                         </div>
