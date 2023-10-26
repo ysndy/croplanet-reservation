@@ -26,7 +26,8 @@ public class ActionInterceptor implements HandlerInterceptor {
         String action;
 
         if(request.getRequestURI().equals("/users")){
-            action = request.getRequestURI().replace("/users", "first_open");
+            return true;
+            //action = request.getRequestURI().replace("/users", "first_open");
         }else {
             action = request.getRequestURI().replace("/users/", "");
         }
