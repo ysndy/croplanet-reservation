@@ -117,11 +117,11 @@
 }
 
 #sheet .survey_title {
-  width: 60%;
+  width: 70%;
   text-align: center;
   height: 30%;
-  margin: 0 auto;
   font-size: 20px;
+  margin: 0 auto 10px;
 }
 
 #sheet .survey_questions {
@@ -143,6 +143,7 @@
 
 #sheet form #swiper_survey {
   height: 80%;
+  overflow: auto;
 }
 
 
@@ -155,8 +156,14 @@
 
 }
 
+#sheet .body .survey_container {
+  margin-bottom: 20px;
+}
+
 #sheet footer {
 
+  position: fixed;
+  margin-bottom: 5px;
   height: 20%;
   font-size: 20px;
   display: flex;

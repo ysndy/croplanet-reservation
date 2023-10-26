@@ -137,11 +137,12 @@
                     <form th:action="@{/users/survey}" method="post" th:object="${surveyResponseDto}">
 
                         <!-- Slider main container -->
-                        <div class="swiper" id="swiper_survey">
-                            <!-- Additional required wrapper -->
+                        <div class="none-swiper" id="swiper_survey">
+                            <!-- Additional required wrapper
                             <img th:src="@{/images/icon/left.png}" class="swiper-button-prev" id="swiper_survey_prev"/>
                             <img th:src="@{/images/icon/right.png}"  class="swiper-button-next" id="swiper_survey_next"/>
-                            <div class="swiper-wrapper">
+                            -->
+                            <div class="none-swiper-wrapper">
 
                                 <section class="survey_container swiper-slide" th:each=" survey : ${surveys}">
                                     <div th:text="${survey.title}" class="survey_title"> 제목 </div>
@@ -157,10 +158,9 @@
                                 </section>
 
                             </div>
-
-                            <!-- If we need pagination -->
+                            <!-- If we need pagination
                             <div class="swiper-pagination" id="swiper_survey_pagination"></div>
-
+                            -->
                         </div>
 
                         <footer>
