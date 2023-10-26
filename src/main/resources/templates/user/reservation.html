@@ -14,7 +14,7 @@
         <img src="/images/reservation_cat.svg"/>
         <p class="rank" th:text="|현재 ${reservation.id}등이에요.
         꼭 선물받으러오세요!|"></p>
-        <button onclick="addChannel()">채널 추가</button>
+        <button onclick="addChannel()" class="button"> ✨ 알림 받기 ✨ </button>
         <a class="button" th:href="@{/users}"> ✨ 서비스 구경하러 가기 ✨ </a>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script type="text/javascript" th:src="@{/js/user/reservation.js}"></script>

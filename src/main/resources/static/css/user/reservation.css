@@ -38,7 +38,7 @@ p {
     text-align: center;
 }
 
-a.button {
+.button {
     display: inline-block;
     padding: 10px 20px; /* 버튼 내부 여백 설정 */
     text-decoration: none; /* 기본 링크 텍스트 스타일 제거 */
@@ -49,14 +49,15 @@ a.button {
     text-align: center;
     cursor: pointer; /* 커서 스타일 설정 */
     transition: background-color 0.3s; /* 호버 효과 애니메이션 */
+    margin-bottom: 5px;
 }
 
 /* 호버 효과 - 버튼 위로 마우스를 가져갈 때 배경색 변경 */
-a.button:hover {
+.button:hover {
     background-color: #E5EFFF;
 }
 
 /* 액티브 효과 - 버튼을 클릭할 때 배경색 변경 */
-a.button:active {
+.button:active {
     background-color: #E5E6EA;
 }
