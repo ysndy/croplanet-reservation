@@ -48,9 +48,28 @@ function share(query){
         type: "POST"
     })
 
+    if (navigator.share) {
+        // Web Share API를 지원하는 브라우저에서만 실행
+        navigator.share({
+            title: "크로플래닛 사전예약 페이지", // 공유될 제목
+            text: "크로플래닛 사전예약 이벤트 중! 많은 참여 바랍니다~!", // 공유될 텍스트
+            url: "https://me2.kr/tVXam?query="+query // 공유할 URL
+        })
+            .then(function() {
+                console.log("공유가 성공적으로 완료되었습니다.");
+            })
+            .catch(function(error) {
+                console.error("공유 중 오류 발생: " + error);
+            });
+    } else {
+        // Web Share API를 지원하지 않는 브라우저에서 경고 메시지 표시
+        alert("Web Share API를 지원하지 않는 브라우저입니다.");
+    }
+
     // 현재 주소 가져오기
     var currentURL = document.location.href;
 
+    /*
     // Clipboard API를 사용하여 현재 주소를 클립보드에 복사
     var tempInput = document.createElement("input");
     tempInput.value = currentURL+"?query="+query;
@@ -60,7 +79,7 @@ function share(query){
     document.body.removeChild(tempInput);
 
     alert("링크가 복사되었습니다.");
-
+    */
 }
 
 function like_top(){
