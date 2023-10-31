@@ -8,30 +8,43 @@
 
 <div class="page-wrapper">
 
-    <div th:each="survey : ${surveys}">
+    <div class="row g-5">
+        <div class="col-12" th:each="survey : ${surveys}">
 
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="white-box">
 
-                        <p th:text="${survey.title}"> 제목 </p>
-                        <canvas th:id="${survey.id}" th:if="${!survey.type.description.toString().equals('text')}"></canvas>
-                        <div th:if="${survey.type.description.toString().equals('text')}" th:each="surveyResponse : ${surveyResponses}">
+                <div class="col-12">
+                    <p th:text="${survey.title}"> 제목 </p>
+                </div>
+                <div class="col-12">
+                    <div class="row">
 
-                            <p th:if="${surveyResponse.survey.id == survey.id}" th:text="|${surveyResponseStat.count}. ${surveyResponse.answer}|"> 설문 응답 </p>
+                        <div class="col-1"></div>
 
+                        <div class="col-10">
+                            <canvas th:id="${survey.id}"
+                                    th:if="${!survey.type.description.toString().equals('text')}"></canvas>
+
+                            <ul th:if="${survey.type.description.toString().equals('text')}"
+                                class="list-group list-group-flush list-group-numbered">
+
+                                <th:block th:each="surveyResponse : ${surveyResponses}">
+
+                                    <li class="list-group-item" th:if="${surveyResponse.survey.id == survey.id}">
+                                        <span th:text="${surveyResponse.answer}"> 설문 응답 </span>
+                                    </li>
+
+                                </th:block>
+
+                            </ul>
                         </div>
+
+                        <div class="col-1"></div>
 
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,17 +53,17 @@
         const surveys = [[${surveys}]];
         const surveyResponses = [[${surveyResponses}]];
 
-        for(let i = 0; i < surveys.length; i++){
+        for (let i = 0; i < surveys.length; i++) {
             const survey = surveys[i];
             const questions = [];
             const data = [];
 
-            for(let j=0; j<survey.questions.length; j++){
+            for (let j = 0; j < survey.questions.length; j++) {
                 questions.push(survey.questions[j].question);
                 let count = 0;
-                for(let k=0; k<surveyResponses.length; k++){
+                for (let k = 0; k < surveyResponses.length; k++) {
 
-                    if(surveyResponses[k].survey.id == survey.id && surveyResponses[k].answer == questions[j]) count++;
+                    if (surveyResponses[k].survey.id == survey.id && surveyResponses[k].answer == questions[j]) count++;
 
                 }
                 data.push(count);
@@ -58,11 +71,11 @@
 
             const pie = document.getElementById(survey.id);
             new Chart(pie, {
-                type: 'pie',
+                type: 'bar',
                 data: {
                     labels: questions,
                     datasets: [{
-                        label: '# of Clicks',
+                        label: '# of Responses',
                         data: data,
                         borderWidth: 1
                     }]
@@ -70,7 +83,6 @@
             });
 
         }
-
 
 
     </script>
