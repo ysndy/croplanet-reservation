@@ -72,36 +72,38 @@
     <div class="table-responsive">
         <table class="table">
             <thead>
-                <tr>
-                    <th> #</th>
-                    <th> 프로필 사진</th>
-                    <th> 날짜</th>
-                    <th> 이름</th>
-                    <th> 성별</th>
-                    <th> 생일</th>
-                    <th> 전화번호</th>
-                    <th> 이메일</th>
-                </tr>
+            <tr>
+                <th> #</th>
+                <th> 프로필 사진</th>
+                <th> 날짜</th>
+                <th> 이름</th>
+                <th> 성별</th>
+                <th> 생일</th>
+                <th> 전화번호</th>
+                <th> 이메일</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:each="reservation : ${reservations.content}">
-                    <td th:text="${reservation.id}"></td>
-                    <td><img th:src="${reservation.profile_image}"></td>
-                    <td th:text="${reservation.date}"></td>
-                    <td th:text="${reservation.name}"></td>
-                    <td th:text="${reservation.gender}"></td>
-                    <td th:text="${reservation.birthday}"></td>
-                    <td th:text="${reservation.phone_number}"></td>
-                    <td th:text="${reservation.account_email}"></td>
-                </tr>
+            <tr th:each="reservation : ${reservations.content}">
+                <td th:text="${reservation.id}"></td>
+                <td><img th:src="${reservation.profile_image}"></td>
+                <td th:text="${reservation.date}"></td>
+                <td th:text="${reservation.name}"></td>
+                <td th:text="${reservation.gender}"></td>
+                <td th:text="${reservation.birthday}"></td>
+                <td th:text="${reservation.phone_number}"></td>
+                <td th:text="${reservation.account_email}"></td>
+            </tr>
             </tbody>
         </table>
         <div th:if="${reservations.totalPages > 1}">
-            <ul class="pagination">
-                <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
-                    <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
-                </li>
-            </ul>
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
+                        <a class="page-link" th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
