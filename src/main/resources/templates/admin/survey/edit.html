@@ -8,51 +8,109 @@
 
 <div class="page-wrapper">
 
-    <h1>설문 목록</h1>
+    <div class="row g-3">
+        <div class="col-md-4" th:each="survey : ${surveys}">
 
-    <div th:each="survey : ${surveys}">
+            <div class="card">
 
-        <h3 th:text="|${surveyStat.count}. ${survey.title}|"></h3>
-        <form th:action="@{/admin/surveys/delete}" method="post">
-            <input type="hidden" name="id" th:value="${survey.id}">
-            <button type="submit"> X </button>
-        </form>
-        <p th:text="|type: ${survey.type.description}|"></p>
-        <div th:if="${!#strings.equals(survey.type.description,'text')}" th:each="question : ${survey.questions}">
-            <span th:text="|${questionStat.count}. ${question.question}|">질문</span>
+                <div class="card-header">
+                    <div class="row">
+
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+
+                            <span class="align-middle" th:text="${survey.id}"></span>
+
+                        </div>
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+
+                            <span class="align-middle" th:text="${survey.type.description}"></span>
+
+                        </div>
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+
+                            <form th:action="@{/admin/surveys/delete}" method="post">
+                                <input type="hidden" name="id" th:value="${survey.id}">
+                                <button class="btn-close" type="submit"></button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${survey.title}"></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item border-0" th:if="${!#strings.equals(survey.type.description,'text')}"
+                            th:each="question : ${survey.questions}">
+                            <span class="badge bg-secondary ms-auto" th:text="|${questionStat.count}|"></span>
+                            <span th:text="|${question.question}|">질문</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <a class="btn btn-light" href="#myModal" data-bs-toggle="modal">
+                설문 추가
+            </a>
         </div>
 
     </div>
 
-    <hr>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel"> 설문 추가 </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-    <h1>설문 추가</h1>
+                <div class="modal-body">
 
-    <form id="dynamicForm" action="#" method="post" th:action th:object="${surveyDto}">
+                    <form id="dynamicForm" action="#" method="post" th:action th:object="${surveyDto}">
 
-        <label for="title"> 제목 </label>
-        <input type="text" id="title" th:field="*{title}">
+                        <input class="form-control" type="text" id="title" th:field="*{title}" placeholder="제목">
 
-        <div th:each="type : ${surveyTypes}" >
-            <input type="radio" th:field="*{type}" th:value="${type.name()}">
-            <label th:for="${#ids.prev('type')}" th:text="${type.description}">
-                radio
-            </label>
+                        <br>
 
-        </div>
+                        <div class="form-check">
+                            <div th:each="type : ${surveyTypes}">
+                                <input class="form-check-input" type="radio" th:field="*{type}" th:value="${type.name()}">
+                                <label th:for="${#ids.prev('type')}" th:text="${type.description}">
+                                    radio
+                                </label>
+                            </div>
+                        </div>
 
-        <!-- 초기 입력 필드 -->
-        <p> 질문 </p>
-        <input type="text" th:field="*{questions[0]}" />
-        <br>
+                        <br>
 
-        <div id="inputContainer">
-            <!-- 동적으로 추가될 입력 필드는 여기에 위치합니다. -->
-        </div>
+                        <button class="btn btn-dark" type="button" onclick="addInputField()">질문 추가</button>
 
-        <button type="button" onclick="addInputField()">질문 추가</button>
-        <button type="submit">설문 등록</button>
-    </form>
+                        <br>
+
+                        <!-- 초기 입력 필드 -->
+                        <input class="form-control" type="text" th:field="*{questions[0]}" placeholder="0"/>
+                        <br>
+
+                        <div id="inputContainer">
+                            <!-- 동적으로 추가될 입력 필드는 여기에 위치합니다. -->
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="submit" class="btn btn-dark">변경 사항 저장</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div> <!-- 모달 콘텐츠 -->
+        </div> <!-- 모달 다이얼로그 -->
+    </div> <!-- 모달 전체 윈도우 -->
 
     <script>
         var index = 1; // 다음 입력 필드 인덱스
@@ -60,8 +118,10 @@
         function addInputField() {
             var inputContainer = document.getElementById("inputContainer");
             var input = document.createElement("input");
+            input.classList.add("form-control");
             input.type = "text";
             input.name = "questions[" + index + "]";
+            input.placeholder = index+"";
             inputContainer.appendChild(input);
             inputContainer.appendChild(document.createElement("br"));
             index++;
