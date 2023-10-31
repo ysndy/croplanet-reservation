@@ -7,97 +7,105 @@
 <body>
 
 
-    <div class="page-wrapper">
+<div class="page-wrapper">
 
-        <div class="page-breadcrumb bg-white">
-            <div class="row align-items-center">
+    <form th:action method="get" th:object="${reservationSearchCond}">
 
-                <form th:action method="get" th:object="${reservationSearchCond}">
+        <div class="row justify-content-between g-2">
 
-                    <label for="start_date"></label>
-                    <input id="start_date" type="date" th:field="*{startDate}"/>
-
-                    <label for="end_date"></label>
-                    <input id="end_date" type="date" th:field="*{endDate}"/>
-
-                    <label for="name"> 이름 </label>
-                    <input id="name" type="text" th:field="*{name}"/>
-
-                    <label for="phone_number">휴대폰 번호</label>
-                    <input id="phone_number" type="tel" th:field="*{phoneNumber}"/>
-
-                    <label for="email">이메일</label>
-                    <input id="email" type="email" th:field="*{email}"/>
-
-                    <button type="submit"> 검색 </button>
-
-                </form>
-
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <input class="form-control" id="start_date" type="date" th:field="*{startDate}"/>
             </div>
-            <!-- /.col-lg-12 -->
-        </div>
 
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="white-box">
-                        <div class="table-responsive">
-                            <table  class="table text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0"> 프로필 사진 </th>
-                                    <th class="border-top-0"> 날짜 </th>
-                                    <th class="border-top-0"> 순번 </th>
-                                    <th class="border-top-0"> 이름 </th>
-                                    <th class="border-top-0"> 성별 </th>
-                                    <th class="border-top-0"> 생일 </th>
-                                    <th class="border-top-0"> 전화번호 </th>
-                                    <th class="border-top-0"> 이메일 </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="reservation : ${reservations.content}">
-                                    <td><img th:src="${reservation.profile_image}"></td>
-                                    <td th:text="${reservation.date}"></td>
-                                    <td th:text="${reservation.id}"></td>
-                                    <td th:text="${reservation.name}"></td>
-                                    <td th:text="${reservation.gender}"></td>
-                                    <td th:text="${reservation.birthday}"></td>
-                                    <td th:text="${reservation.phone_number}"></td>
-                                    <td th:text="${reservation.account_email}"></td>
-                                </tr>
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <input class="form-control" id="end_date" type="date" th:field="*{endDate}"/>
+            </div>
 
-                                </tbody>
-                            </table>
-                            <div th:if="${reservations.totalPages > 1}">
-                                <ul class="pagination">
-                                    <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
-                                        <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                </svg>
+            </span>
+                    <input class="form-control" id="name" type="text" th:field="*{name}" placeholder="이름"/>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End PAge Content -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Right sidebar -->
-            <!-- ============================================================== -->
-            <!-- .right-sidebar -->
-            <!-- ============================================================== -->
-            <!-- End Right sidebar -->
-            <!-- ============================================================== -->
+
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                </svg>
+            </span>
+                    <input class="form-control" id="phone_number" type="tel" th:field="*{phoneNumber}"
+                           placeholder="전화번호"/>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                        </svg>
+            </span>
+                    <input class="form-control" id="email" type="email" th:field="*{email}" placeholder="이메일"/>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-6 d-flex justify-content-end">
+                <button class="btn btn-light" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> #</th>
+                    <th> 프로필 사진</th>
+                    <th> 날짜</th>
+                    <th> 이름</th>
+                    <th> 성별</th>
+                    <th> 생일</th>
+                    <th> 전화번호</th>
+                    <th> 이메일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reservation : ${reservations.content}">
+                    <td th:text="${reservation.id}"></td>
+                    <td><img th:src="${reservation.profile_image}"></td>
+                    <td th:text="${reservation.date}"></td>
+                    <td th:text="${reservation.name}"></td>
+                    <td th:text="${reservation.gender}"></td>
+                    <td th:text="${reservation.birthday}"></td>
+                    <td th:text="${reservation.phone_number}"></td>
+                    <td th:text="${reservation.account_email}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:if="${reservations.totalPages > 1}">
+            <ul class="pagination">
+                <li th:each="i : ${#numbers.sequence(0, reservations.totalPages - 1)}">
+                    <a th:href="@{/admin/reservation(page=${i})}" th:text="${i} + 1"></a>
+                </li>
+            </ul>
         </div>
     </div>
+
+</div>
 
 </body>
 </html>
