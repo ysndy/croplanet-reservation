@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layoutFile :: layout(~{::title}, ~{::div})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>대시보드</title>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div class="row g-3">
+
+        <!-- 폼 영역 -->
+        <div class="col-12">
+
+            <form th:action="@{/admin/dashboard}" method="get" th:object="${chartDto}">
+
+                <div class="row align-items-center justify-content-start">
+                    <div class="col-3">
+                        <input class="form-control" type="date" id="start_date" th:field="*{start_date}">
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control" type="date" id="end_date" th:field="*{end_date}">
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn btn-light" type="submit">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+        <!-- 차트 영역 -->
+        <div class="col-12">
+            <div class="row g-2">
+                <div class="col-lg-6">
+                    <canvas class="border-1 border-secondary shadow-sm rounded-3" id="chart_line"></canvas>
+                </div>
+                <div class="col-lg-6">
+                    <canvas class="border-1 border-secondary shadow-sm rounded-3" id="chart_bar"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 테이블 영역 -->
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table text-nowrap">
+                    <thead>
+                    <tr>
+                        <th th:text="#{label.action.index}" class="border-top-0"> Index</th>
+                        <th th:text="#{label.action.date}" class="border-top-0"> 날짜</th>
+                        <th th:text="#{label.action.action}" class="border-top-0"> 행동</th>
+                        <th th:text="#{label.action.id}" class="border-top-0"> ID</th>
+                        <th th:text="#{label.action.query}" class="border-top-0"> 추천인 ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="action : ${userMethods.content}">
+                        <td th:text="${action.id}"></td>
+                        <td th:text="${action.date}"></td>
+                        <td th:text="${action.action}"></td>
+                        <td th:if="${action.user.reservation != null}"
+                            th:text="${action.user.reservation.account_email}"></td>
+                        <td th:unless="${action.user.reservation != null}"
+                            th:text="${action.user.sessionId}"></td>
+                        <td th:text="${action.query}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${userMethods.totalPages > 1}">
+                    <ul class="pagination">
+                        <li th:each="i : ${#numbers.sequence(0, userMethods.totalPages - 1)}">
+                            <a th:href="@{/admin/table(page=${i})}" th:text="${i} + 1"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+
+        const line = document.getElementById('chart_line');
+        const bar = document.getElementById('chart_bar');
+        const datasets = [];
+        const actions = [[${actions}]]; // 버튼 이름 배열
+        const dates = [[${dates}]];
+        const map = [[${map}]];
+        console.log(actions);
+        console.log(map);
+
+        for (let i = 0; i < actions.length; i++) {
+
+            const data = [];
+
+            for (let j = 0; j < dates.length; j++) {
+                //console.log(map[dates[j]]);
+                data.push(map[dates[j]][actions[i]]);
+            }
+
+            const actionsData = {
+                label: actions[i],
+                data: data,
+                borderWidth: 1
+            };
+
+            datasets.push(actionsData);
+        }
+
+
+        new Chart(line, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        console.log(datasets);
+
+        let data = [];
+
+        for (let i = 0; i < datasets.length; i++) {
+            let sum = 0;
+            for (let j = 0; j < datasets[i].data.length; j++) {
+                sum += datasets[i].data[j];
+            }
+            data.push(sum);
+        }
+
+        new Chart(bar, {
+            type: 'bar',
+            data: {
+                labels: actions,
+                datasets: [{
+                    label: '# of Clicks',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</div>
+
+</body>
+</html>
