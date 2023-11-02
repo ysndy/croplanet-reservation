@@ -219,7 +219,7 @@ public class AdminController {
     @PostMapping("/surveys/delete")
     public String surveyDelete(Long id) {
 
-        surveyRepository.deleteById(id);
+        surveyService.deleteSurvey(id);
 
         return "redirect:/admin/surveys/edit";
     }

@@ -41,4 +41,12 @@ public class SurveyService {
 
     }
 
+    public void deleteSurvey(Long id){
+
+        Survey survey = surveyRepository.findById(id).orElseThrow();
+        questionRepository.deleteBySurvey(survey);
+        surveyRepository.deleteById(id);
+
+    }
+
 }
