@@ -50,7 +50,7 @@ p {
     cursor: pointer; /* 커서 스타일 설정 */
     transition: background-color 0.3s; /* 호버 효과 애니메이션 */
     margin-bottom: 5px;
-    width: 60%;
+    width: 270px;
     font-size: 15px;
 }
 
