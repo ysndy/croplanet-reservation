@@ -11,39 +11,35 @@
     <div class="row g-5">
         <div class="col-12" th:each="survey : ${surveys}">
 
-            <div class="row">
+            <div class="card shadow-sm">
 
-                <div class="col-12">
-                    <p th:text="${survey.title}"> 제목 </p>
+                <div class="card-header">
+
+                    <h5 class="card-title" th:text="${survey.title}"> 제목 </h5>
+
                 </div>
-                <div class="col-12">
-                    <div class="row">
 
-                        <div class="col-1"></div>
+                <div class="card-body">
+                    <canvas th:id="${survey.id}"
+                            th:if="${!survey.type.description.toString().equals('text')}"></canvas>
 
-                        <div class="col-10">
-                            <canvas th:id="${survey.id}"
-                                    th:if="${!survey.type.description.toString().equals('text')}"></canvas>
+                    <ul th:if="${survey.type.description.toString().equals('text')}"
+                        class="list-group list-group-flush list-group-numbered">
 
-                            <ul th:if="${survey.type.description.toString().equals('text')}"
-                                class="list-group list-group-flush list-group-numbered">
+                        <th:block th:each="surveyResponse : ${surveyResponses}">
 
-                                <th:block th:each="surveyResponse : ${surveyResponses}">
+                            <li class="list-group-item" th:if="${surveyResponse.survey.id == survey.id}">
+                                <span th:text="${surveyResponse.answer}"> 설문 응답 </span>
+                            </li>
 
-                                    <li class="list-group-item" th:if="${surveyResponse.survey.id == survey.id}">
-                                        <span th:text="${surveyResponse.answer}"> 설문 응답 </span>
-                                    </li>
+                        </th:block>
 
-                                </th:block>
+                    </ul>
 
-                            </ul>
-                        </div>
-
-                        <div class="col-1"></div>
-
-                    </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 

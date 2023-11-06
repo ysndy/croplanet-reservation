@@ -32,6 +32,10 @@ li a:hover {
     margin-left: 200px;
 }
 
+.editor{
+    width: 375px;
+}
+
 #editor {
     width: 375px;
 }

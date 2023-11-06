@@ -7,7 +7,7 @@
 <body>
 <div class="page-wrapper">
 
-    <div class="row g-3">
+    <div class="row g-5">
 
         <!-- 폼 영역 -->
         <div class="col-12">
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="col-1">
-                        <button class="btn btn-light" type="submit">
+                        <button class="btn bg-white shadow-sm" type="submit">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-search" viewBox="0 0 16 16">
@@ -40,12 +40,12 @@
 
         <!-- 차트 영역 -->
         <div class="col-12">
-            <div class="row g-2">
+            <div class="row g-3">
                 <div class="col-lg-6">
-                    <canvas class="border-1 border-secondary shadow-sm rounded-3" id="chart_line"></canvas>
+                    <canvas class="border-1 border-secondary shadow-sm rounded-3 bg-white" id="chart_line"></canvas>
                 </div>
                 <div class="col-lg-6">
-                    <canvas class="border-1 border-secondary shadow-sm rounded-3" id="chart_bar"></canvas>
+                    <canvas class="border-1 border-secondary shadow-sm rounded-3 bg-white" id="chart_bar"></canvas>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
         <!-- 테이블 영역 -->
         <div class="col-12">
             <div class="table-responsive">
-                <table class="table text-nowrap">
+                <table class="table text-nowrap bg-white shadow-sm rounded-3">
                     <thead>
                     <tr>
                         <th th:text="#{label.action.index}" class="border-top-0"> Index</th>
