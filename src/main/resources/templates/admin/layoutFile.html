@@ -2,172 +2,81 @@
 <html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
-    <meta name="robots" content="noindex,nofollow">
     <title th:replace="${title}">레이아웃 타이틀</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/admin/plugins/images/favicon.png">
-    <!-- Custom CSS -->
-    <link href="/admin/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
-    <!-- Custom CSS -->
-    <link href="/admin/css/style.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/admin.css}" rel="stylesheet"/>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+
+        /*        .navbar {*/
+        /*            width: 200px;*/
+        /*            height: 100%;*/
+        /*        }*/
+
+        /*        .content {*/
+        /*            margin-left: 200px;*/
+        /*        }*/
+
+    </style>
+
 </head>
+<body class="bg-light">
+<div class="d-flex">
+    <nav class="d-flex navbar-dark flex-column bg-dark text-white p-3" style="width: 240px">
+        <a th:href="@{/admin/dashboard}"
+           class="d-flex align-items-center mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <circle cx="24" cy="24" r="24" fill="url(#pattern0)"/>
+                <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0_1596_1217" transform="scale(0.00229358)"/>
+                    </pattern>
+                    <image id="image0_1596_1217" width="436" height="436" xlink:href="data:image/png;base64,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"/>
+                </defs>
+            </svg>
+            <span class="fs-4 ms-2">Admin</span>
+        </a>
+        <hr>
+        <ul class="navbar-nav flex-column mb-auto">
+            <li class="nav-item">
+                <a class="text-white link-dark rounded" href="#" th:href="@{/admin/dashboard}">대시보드</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-white link-dark rounded" href="#" th:href="@{/admin/editor}">마케팅 페이지 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-white link-dark rounded" href="#" th:href="@{/admin/reservation}">사전 예약 현황</a>
+            </li>
 
-<body>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" th:href="@{/admin/table}">
-                        <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!-- Dark Logo icon -->
-                            <img src="/images/icon/logo.png" alt="homepage" style="width: 36px" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text">
-                            <!-- dark Logo text -->
-                            어드민 페이지
-                        </span>
-                    </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
+            <li class="nav-item dropdown">
+                <a class="text-white link-dark rounded dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    설문
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#" th:href="@{/admin/surveys/edit}">설문 관리</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#" th:href="@{/admin/surveys/result}">설문 결과</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/table}"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">요청사항 집계</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/editor}"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">마케팅 페이지 관리</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/chart}"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">사용자 행동</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/reservation}"
-                                aria-expanded="false">
-                                <i class="fa fa-font" aria-hidden="true"></i>
-                                <span class="hide-menu">사전 예약 현황</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/surveys/edit}"
-                               aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">설문 관리</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin/surveys/result}"
-                                aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">설문 결과</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper" th:replace="${content}">
-
-            <div class="content" >
-                <p>레이아웃 컨텐츠</p>
-            </div>
-
-            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+    <div class="container pt-3 pb-3 bg-light" style="margin-left: 240px">
+        <div th:replace="${content}" class="content">
+            <p>레이아웃 컨텐츠</p>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="/admin/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/admin/js/app-style-switcher.js"></script>
-    <script src="/admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--Wave Effects -->
-    <script src="/admin/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="/admin/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="/admin/js/custom.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="/admin/plugins/bower_components/chartist/dist/chartist.min.js"></script>
-    <script src="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="/admin/js/pages/dashboards/dashboard1.js"></script>
-</body>
 
+</div>
+
+<script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+
+</body>
 </html>

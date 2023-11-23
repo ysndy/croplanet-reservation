@@ -92,3 +92,83 @@ window.addEventListener("touchmove", onDragMove)
 
 window.addEventListener("mouseup", onDragEnd)
 window.addEventListener("touchend", onDragEnd)
+
+
+//버튼 변경
+document.addEventListener('DOMContentLoaded', function() {
+  var radioGroups = {}; // 라디오 그룹을 저장할 객체
+
+  var inputs = document.querySelectorAll('.circle'); // 해당 클래스를 가진 모든 input 요소 선택
+
+  inputs.forEach(function(input) {
+    input.addEventListener('change', function() {
+      var label = this.parentElement.querySelector('label');
+      var img = label.querySelector('img');
+
+      // 라디오 버튼 처리
+      if (this.type === 'radio') {
+        var groupName = this.name;
+
+        // 같은 라디오 그룹 내의 다른 라디오 버튼들을 비활성화
+        if (radioGroups[groupName]) {
+          radioGroups[groupName].forEach(function(radio) {
+            var radioLabel = radio.parentElement.querySelector('label');
+            var radioImg = radioLabel.querySelector('img');
+            radioImg.src = 'images/icon/checkbox/off.png';
+          });
+        }
+
+        // 현재 선택한 라디오 버튼을 활성화
+        img.src = 'images/icon/checkbox/on.png';
+
+        // 라디오 그룹에 현재 라디오 버튼 추가
+        if (!radioGroups[groupName]) {
+          radioGroups[groupName] = [];
+        }
+        radioGroups[groupName].push(this);
+      }
+
+      // 체크박스 처리
+      else if (this.type === 'checkbox') {
+        // 체크 상태에 따라 이미지 변경
+        img.src = this.checked ? 'images/icon/checkbox/on.png' : 'images/icon/checkbox/off.png';
+      }
+    });
+  });
+});
+
+//scollspy 적용
+document.addEventListener('DOMContentLoaded', function() {
+  var surveys = document.querySelectorAll('.survey_container');
+  var currentSurveyIndex = 0;
+
+  surveys.forEach(function(survey, index) {
+    var inputs = survey.querySelectorAll('.circle, input[type="text"]');
+    inputs.forEach(function(input) {
+      input.addEventListener('change', function() {
+        // 현재 survey에서 입력이 발생하면 다음 survey로 스크롤
+        if (index === currentSurveyIndex) {
+          currentSurveyIndex++;
+          if (currentSurveyIndex < surveys.length) {
+            surveys[currentSurveyIndex].scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+
+      // 엔터 키를 눌렀을 때 폼 제출 방지
+      input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+
+          // 현재 survey에서 입력이 발생하면 다음 survey로 스크롤
+          if (index === currentSurveyIndex) {
+            currentSurveyIndex++;
+            if (currentSurveyIndex < surveys.length) {
+              surveys[currentSurveyIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      });
+    });
+  });
+});
