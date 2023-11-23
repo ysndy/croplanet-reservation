@@ -117,24 +117,32 @@
 }
 
 #sheet .survey_title {
-  width: 70%;
-  text-align: center;
+  width: 90%;
+  text-align: left;
   height: 30%;
   font-size: 20px;
   margin: 0 auto 10px;
+  padding: 10px;
 }
 
 #sheet .survey_questions {
   height: 70%;
   display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
+  justify-content: left; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
+  padding: 10px;
+}
+
+#sheet .question_container {
+  width: 100%;
 }
 
 #sheet .question {
   font-size: 20px;
   height: 30px;
   margin-bottom: 10px;
+  width: 100%;
+
 }
 
 #sheet form {
@@ -205,4 +213,17 @@
 }
 #sheet footer button.left:active{
   background: lightgray;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* 더 둥글게 하고 싶은 정도로 조절 */
+  transition: border-color 0.3s; /* 테두리 색깔 변경 시 부드럽게 애니메이션 적용 */
+}
+
+input[type="text"]:focus {
+  border-color: #5B46FF; /* 클릭 시 테두리 색깔 변경 */
+  outline: none; /* 기본 포커스 효과 제거 */
 }

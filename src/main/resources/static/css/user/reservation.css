@@ -40,7 +40,8 @@ p {
 
 .button {
     display: inline-block;
-    padding: 10px 20px; /* 버튼 내부 여백 설정 */
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration: none; /* 기본 링크 텍스트 스타일 제거 */
     background-color: #ffffff; /* 배경색 설정 */
     color: #000000; /* 텍스트 색상 설정 */
