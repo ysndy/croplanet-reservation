@@ -6,50 +6,87 @@
 </head>
 <body>
 
-    <div class="page-wrapper">
+<div class="page-wrapper bg-white">
 
-        <div class="page-breadcrumb bg-white">
-            <div class="row align-items-center">
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <div class="row justify-content-center shadow-sm rounded-3 g-3">
+        <div class="col-12">
+            <div class="btn-group border-dark">
+                <button class="btn" onclick="alignText('left')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-text-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <button class="btn" onclick="alignText('center')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-text-center" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M4 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <button class="btn" onclick="alignText('right')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-text-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm4-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
 
-                    <div>
-                        <label for="imageUpload">이미지 업로드:</label>
-                        <input type="file" id="imageUpload" accept="image/*" onchange="insertImage()" style="display: none;">
-                        <button onclick="openImageUploader()">이미지 업로드</button>
-                    </div>
 
-                    <div>
-                        <button onclick="alignText('left')">왼쪽 정렬</button>
-                        <button onclick="alignText('center')">가운데 정렬</button>
-                        <button onclick="alignText('right')">오른쪽 정렬</button>
-                    </div>
-                    <div>
-                        <span>폰트 크기</span>
-                        <button onclick="decreaseFontSize()">-</button>
-                        <button onclick="increaseFontSize()">+</button>
-                    </div>
-                    <div>
-                        <button onclick="toggleBold()">굵게</button>
-                    </div>
-                    <div>
-                        <button onclick="save()">저장</button>
-                    </div>
+                <button class="btn" onclick="decreaseFontSize()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-dash-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                    </svg>
+                </button>
+                <button class="btn" onclick="increaseFontSize()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                </button>
 
-                </div>
+
+                <button class="btn" onclick="toggleBold()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-type-bold" viewBox="0 0 16 16">
+                        <path d="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13H8.21zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.673zm0 6.788V8.598h1.73c1.217 0 1.88.492 1.88 1.415 0 .943-.643 1.449-1.832 1.449H5.907z"/>
+                    </svg>
+                </button>
+                <input type="file" id="imageUpload" accept="image/*" onchange="insertImage()"
+                       style="display: none;">
+                <button class="btn" onclick="openImageUploader()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                    </svg>
+                </button>
+                <button class="btn" onclick="save()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-floppy-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5v-13Z"/>
+                        <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V16Zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V0ZM9 1h2v4H9V1Z"/>
+                    </svg>
+
+                </button>
+
             </div>
-            <!-- /.col-lg-12 -->
         </div>
-
-
-
-        <div>
-            <div id="editor" contenteditable="true" placeholder="텍스트를 입력하세요..." th:utext="${fileContent}"></div>
+        <div class="col-12">
+            <div class="row justify-content-center">
+                <div class="bg-white border-secondary" id="editor" contenteditable="true"
+                     placeholder="텍스트를 입력하세요..." th:utext="${fileContent}"></div>
+            </div>
         </div>
-
-        <script type="text/javascript" th:src="@{/js/admin/editor.js}"></script>
 
     </div>
+    <script th:src="@{/js/admin/editor.js}"></script>
 
+</div>
 
 </body>
 </html>

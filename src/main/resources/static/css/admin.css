@@ -32,6 +32,10 @@ li a:hover {
     margin-left: 200px;
 }
 
+.editor{
+    width: 375px;
+}
+
 #editor {
     width: 375px;
 }
@@ -41,5 +45,5 @@ li a:hover {
 }
 
 canvas {
-    width: 500px;
+    width: 30%;
 }
