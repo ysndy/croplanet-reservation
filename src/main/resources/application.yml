@@ -19,13 +19,5 @@ spring:
   profiles:
     active: local
 
-kakao:
-  client:
-    id: 490c03e919869544279449cbbf4ef062
-    secret: rm2e08iUqNrYMh222qWbfhpDBxcVX39a
-
-  redirect:
-    url: http://3.34.210.95:8080/users/basket
-
 upload:
   directory: /uploads/
